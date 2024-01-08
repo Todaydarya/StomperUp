@@ -5,6 +5,8 @@ using System.Windows.Input;
 using StomperUp.Pages.AuthReg;
 using System.Linq;
 using StomperUp.Windows;
+using MaterialDesignThemes;
+using StomperUp.Pages.User;
 
 namespace StomperUp.Pages.AuthReg
 {
@@ -13,6 +15,8 @@ namespace StomperUp.Pages.AuthReg
     /// </summary>
     public partial class AuthPage : Page
     {
+        AdminWindow adminWindow = new AdminWindow();
+        MainWindow userWindow = new MainWindow();
         public AuthPage()
         {
             InitializeComponent();
@@ -20,33 +24,34 @@ namespace StomperUp.Pages.AuthReg
 
         private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            /*var password = hashPasswordClass.hashPassword(pbPassword.Password);*/
+            ///переделать хэширования пароля
+            var password = HashPassword.hashPassword(pbPassword.Password);
             var users = await ConnectionDB.GetUsers();
-            var usersAuth = users.FirstOrDefault(user => user.email == tbLogin.Text && user.password == pbPassword.Password);
-            if (string.IsNullOrEmpty(tbLogin.Text))
+            var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text && user.password == pbPassword.Password);
+            if (string.IsNullOrEmpty(tbEmail.Text))
             {
-                MessageBox.Show("Введите логин");
+                SnackbarFour.MessageQueue.Enqueue("Введите логин");
             }
             else if (string.IsNullOrEmpty(pbPassword.Password))
             {
-                MessageBox.Show("Введите пароль");
+                SnackbarFour.MessageQueue.Enqueue("Введите пароль");
             }
-            else if (usersAuth.email == null)
+            else if (usersAuth == null)
             {
-                if(MessageBox.Show("Такой пользователь не зарегистрирован. Зарегистрироваться?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Такой пользователь не зарегистрирован. Зарегистрироваться?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     NavigationClass.navigate.Navigate(new RegPage());
                 }
             }
-            else if(usersAuth.role == "admin")
+            else if (usersAuth.role == "admin")
             {
-                ///открытие страницы админа
+                adminWindow.Show();
+                userWindow.Close();
             }
             else
             {
-                ///открытие страниц пользователя
-                /*NavigationClass.navigate.Navigate(new MainPage());*/
-                /*CheckClass.userId = usersAuth._id;*/
+                NavigationClass.navigate.Navigate(new MainPage());
+                CheckClass.idUser = usersAuth._id.ToString();
             }
         }
 

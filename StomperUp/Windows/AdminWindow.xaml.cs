@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StomperUp.Class;
+using StomperUp.Pages.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +12,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StomperUp.Pages.User
+namespace StomperUp.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для AdminWindow.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class AdminWindow : Window
     {
-        public MainPage()
+        public AdminWindow()
         {
             InitializeComponent();
-            /*tbSearch.ItemsSource = new string[] { "Дарья", "Александр" };*/
+            mainFrame.Navigate(new MainPage());
+            NavigationClass.navigate = mainFrame;
         }
     }
 }

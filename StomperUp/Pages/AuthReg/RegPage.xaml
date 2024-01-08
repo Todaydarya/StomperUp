@@ -3,37 +3,29 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:StomperUp.Pages.AuthReg"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="450"
       Title="Регистрация">
 
-    <StackPanel VerticalAlignment="Center">
+    <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock x:Name="auth" Text="Авторизация" MouseLeftButtonDown="auth_MouseLeftButtonDown" Style="{StaticResource UnderlineOnHover}"/>
             <TextBlock Text="|"/>
             <TextBlock Text="Регистрация" FontWeight="Bold"/>
         </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="Логин"/>
-            <TextBox Name="tbLogin" PreviewTextInput="tbLogin_PreviewTextInput"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="Почта"/>
-            <TextBox Name="tbEmail" PreviewTextInput="tbEmail_PreviewTextInput"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="Пароль"/>
-            <PasswordBox Name="tbPassword"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="Повторите пароль"/>
-            <PasswordBox Name="tbPassword2"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <CheckBox Name="chbUse"/>
-            <TextBlock Name="tbConditions" Text="Условия использования" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="tbConditions_MouseLeftButtonDown"/>
-        </StackPanel>
-        <Button Name="btnNext" Content="Продолжить" Click="btnNext_Click" Template="{StaticResource btnStyleMain}"/>
+        
+        <TextBox Name="tbFIO" materialDesign:HintAssist.Hint="ФИО" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+        <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+
+        <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Пароль" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+        <PasswordBox Name="pbPasswordCheck" materialDesign:HintAssist.Hint="Повторите пароль" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+
+        <CheckBox Name="cbUse" Content="Условия использования" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" Checked="CheckBox_Checked" />
+        
+        <Button Name="btnNext" Content="Продолжить" Click="btnNext_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
+        <materialDesign:Snackbar x:Name="SnackbarFour" VerticalAlignment="Bottom" MessageQueue="{materialDesign:MessageQueue}" />
     </StackPanel>
 </Page>

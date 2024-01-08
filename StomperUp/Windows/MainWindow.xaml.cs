@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using StomperUp.Pages.User;
 using StomperUp.Class;
 using StomperUp.Pages.AuthReg;
+using System.Globalization;
 
 namespace StomperUp.Windows
 {
@@ -25,7 +26,7 @@ namespace StomperUp.Windows
     {
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             mainFrame.Navigate(new MainPage());
             NavigationClass.navigate = mainFrame;
         }
@@ -57,7 +58,18 @@ namespace StomperUp.Windows
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            NavigationClass.navigate.Navigate(new ProfilePage());
+            if (CheckClass.idUser == null)
+            {
+                if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    AuthRegWindow authReg = new AuthRegWindow();
+                    authReg.ShowDialog();
+                }
+            }
+            else
+            {
+                NavigationClass.navigate.Navigate(new ProfilePage());
+            }
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -88,5 +100,6 @@ namespace StomperUp.Windows
                 this.Close();
             }
         }
+        
     }
 }

@@ -11,10 +11,19 @@
       Title="MainPage">
 
     <WrapPanel>
-        <RadioButton Content="Все" IsChecked="True" GroupName="rbCource"/>
-        <RadioButton Content="Активные" GroupName="rbCource"/>
+        <ListBox x:Name="RadioButtonGroupChoiceChipPrimaryOutline" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
+            <ListBoxItem Content="Все" IsSelected="True" />
+            <ListBoxItem Content="Активные"/>
+        </ListBox>
 
+        
         <control:AutoCompleteBox Name="tbSearch"></control:AutoCompleteBox>
-        <Button Name="btbSerch"/>
+        <TextBox Name="tbSearch1" VerticalAlignment="Top" materialDesign:HintAssist.Hint="Поиск" IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordBoxEnabledComboBox}" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+        <Button Name="btbSerch">
+            <StackPanel Margin="-5">
+                <materialDesign:PackIcon Kind="Search"/>
+            </StackPanel>
+        </Button>
     </WrapPanel>
 </Page>

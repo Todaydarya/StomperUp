@@ -10,9 +10,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
         <materialDesign:Card Margin="10" UniformCornerRadius="15" VerticalAlignment="Center">
             <ListView Name="menuWrapPanel" ScrollViewer.CanContentScroll="False">
                 <ListViewItem HorizontalAlignment="Center">
@@ -66,7 +65,6 @@
                 </ListViewItem>
             </ListView>
         </materialDesign:Card>
-
 
         <Frame Name="mainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>

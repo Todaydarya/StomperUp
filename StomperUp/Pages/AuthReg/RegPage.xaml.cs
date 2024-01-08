@@ -1,4 +1,6 @@
 ﻿using StomperUp.Class;
+using StomperUp.Pages.User;
+using StomperUp.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -49,7 +51,71 @@ namespace StomperUp.Pages.AuthReg
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo("https://www.figma.com/file/ApoNjh8f2Ba8UViZjKAaIM/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC?type=design&node-id=32-220&mode=design&t=4cQIkCV6wc0H2xqb-0"));
+            if (string.IsNullOrEmpty(tbFIO.Text))
+            {
+                SnackbarFour.MessageQueue.Enqueue("Введите ФИО");
+            }
+            else if (string.IsNullOrEmpty(tbEmail.Text))
+            {
+                SnackbarFour.MessageQueue.Enqueue("Введите почту");
+            }
+            else if (string.IsNullOrEmpty(pbPassword.Password))
+            {
+                SnackbarFour.MessageQueue.Enqueue("Введите пароль");
+            }
+            else if (string.IsNullOrEmpty(pbPasswordCheck.Password))
+            {
+                SnackbarFour.MessageQueue.Enqueue("Повторите пароль");
+            }
+            else if (cbUse.IsChecked == false)
+            {
+                SnackbarFour.MessageQueue.Enqueue("Отметьте условия пользования");
+            }
+            else if(pbPassword.Password != pbPasswordCheck.Password)
+            {
+                SnackbarFour.MessageQueue.Enqueue("Пароли не совпадают");
+            }
+
+
+            //Сделать добавление пользователей
+            /*else if (usersAuth == null)
+            {
+                if (MessageBox.Show("Такой пользователь уже зарегистрирован. Восстановить аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    GmailVerification mail = new GmailVerification();
+                    mail.ShowDialog();
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (var dbContext = new CourseEntities())
+                    {
+                        newUser.login = tbLogin.Text;
+                        newUser.email = tbEmail.Text;
+                        newUser.password = hashPasswordClass.hashPassword(tbPassword.Password);
+                        dbContext.Users.Add(newUser);
+                        dbContext.SaveChanges();
+
+                        MessageBox.Show("Добро пожаловать новый пользователь!", "Удачно", MessageBoxButton.OK, MessageBoxImage.Information);
+                        CheckClass.userId = newUser.idUser;
+                        NavigationClass.mainFrame.Navigate(new MainPage());
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка при сохранении");
+                }
+            }*/
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("Открыть страницу условий пользования?","Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Process.Start(new ProcessStartInfo("https://www.figma.com/file/ApoNjh8f2Ba8UViZjKAaIM/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC?type=design&node-id=32-220&mode=design&t=4cQIkCV6wc0H2xqb-0"));
+            }
         }
     }
 }

@@ -1,0 +1,66 @@
+﻿<Window x:Class="StomperUp.Windows.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StomperUp.Windows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Режим администратора" Height="450" Width="800" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone Padding="5" Mode="PrimaryMid">
+            <DockPanel>
+                <StackPanel materialDesign:RippleAssist.IsCentered="True" Orientation="Horizontal">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                    <ComboBox
+                    Margin="8,0,0,0"
+                    materialDesign:ColorZoneAssist.Mode="Standard"
+                    materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesignPaper}"
+                    BorderBrush="{DynamicResource MaterialDesignPaper}"
+                    BorderThickness="0"
+                    SelectedIndex="0">
+                        <ComboBoxItem Content="Курсы" />
+                        <ComboBoxItem Content="Пользователи" />
+                    </ComboBox>
+                    <materialDesign:ColorZone
+                Margin="16,0,0,0"
+                Panel.ZIndex="1"
+                materialDesign:ElevationAssist.Elevation="Dp2"
+                CornerRadius="2"
+                Mode="Standard">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Kind="Search" Opacity=".56" />
+                            </Button>
+                            <TextBox
+                        Grid.Column="1"
+                        MinWidth="200"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Build a search bar"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0" />
+
+                        </Grid>
+                    </materialDesign:ColorZone>
+                    <Button Margin="8,0,0,0" Panel.ZIndex="0" Style="{StaticResource MaterialDesignToolForegroundButton}">
+                        <materialDesign:PackIcon Kind="Send" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
+        
+        
+        <Frame Name="mainFrame" NavigationUIVisibility="Hidden" Grid.Row="1"/>
+    </Grid>
+</Window>

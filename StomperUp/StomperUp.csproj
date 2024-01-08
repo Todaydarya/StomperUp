@@ -142,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Admin\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AuthReg\AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -182,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AuthRegWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,9 +208,13 @@
     </Compile>
     <Compile Include="Class\CheckClass.cs" />
     <Compile Include="Class\ConnectionDB.cs" />
+    <Compile Include="Class\HashPassword.cs" />
     <Compile Include="Class\NavigationClass.cs" />
     <Compile Include="Class\ValidationClass.cs" />
     <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Pages\Admin\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AuthReg\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
@@ -226,6 +238,9 @@
     </Compile>
     <Compile Include="Pages\User\TaskPage.xaml.cs">
       <DependentUpon>TaskPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AuthRegWindow.xaml.cs">
       <DependentUpon>AuthRegWindow.xaml</DependentUpon>
@@ -268,7 +283,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Admin\" />
     <Folder Include="Style\Fonts\" />
   </ItemGroup>
   <ItemGroup>

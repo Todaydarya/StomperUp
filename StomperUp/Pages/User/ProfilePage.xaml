@@ -3,12 +3,45 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:StomperUp.Pages.User"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="50 0">
+            <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="MaterialDesignActionToggleButton">
+                <Image>
+                    <Image.Source>
+                        <Binding Path="image" TargetNullValue="{materialDesign:PackIcon Kind=GhostOutline}" />
+                    </Image.Source>
+                </Image>
+            </ToggleButton>
+
+            <TextBlock Name="fullName" Text="{Binding fullName}" TextWrapping="WrapWithOverflow" FontSize="36" Margin="0 20 0 0" TextAlignment="Center"/>
+            <TextBlock Text="{Binding email}" Foreground="#C47E2D" TextAlignment="Center" Margin="0 20" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <materialDesign:PackIcon Kind="Email" />
+                <materialDesign:PackIcon Kind="Github" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="50 0" VerticalAlignment="Center">
+            <StackPanel Name="spEditProfile" IsEnabled="False" Margin="0 0 0 20">
+                <TextBox materialDesign:HintAssist.Hint="День рождения" Text="{Binding birthday, StringFormat=dd.MM.yyyy}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <TextBox materialDesign:HintAssist.Hint="Номер телефона" Text="{Binding phone}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <TextBox materialDesign:HintAssist.Hint="Уровень образования" Text="{Binding education}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <TextBox materialDesign:HintAssist.Hint="Место проживания" Text="{Binding city}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <Button Name="btnSave" Content="Сохранить" Visibility="Collapsed" Click="btnSave_Click" Template="{StaticResource btnStyleMain}" Width="220"/>
+            </StackPanel>
+            <Button Name="btnEdit" Content="Редактировать"  Width="220" Click="btnEdit_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
