@@ -1,8 +1,13 @@
-﻿using StomperUp.Class;
+﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using StomperUp.Class;
+using StomperUp.Model;
 using StomperUp.Pages.User;
 using StomperUp.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -44,13 +49,9 @@ namespace StomperUp.Pages.AuthReg
 
         }
 
-        private void tbConditions_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void btnNext_Click(object sender, RoutedEventArgs e)
-        {
+            loading.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(tbFIO.Text))
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите ФИО");
@@ -74,6 +75,47 @@ namespace StomperUp.Pages.AuthReg
             else if(pbPassword.Password != pbPasswordCheck.Password)
             {
                 SnackbarFour.MessageQueue.Enqueue("Пароли не совпадают");
+            }
+            else
+            {
+                var users = await ConnectionDB.GetUsers();
+                var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
+                if (usersAuth != null)
+                {
+                    if (MessageBox.Show("Такой пользователь уже зарегистрирован. Восстановить аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        GmailVerification mail = new GmailVerification();
+                        mail.ShowDialog();
+                    }
+                }
+                else
+                {
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(pbPassword.Password);
+                    string[] searchTerms = tbFIO.Text.ToLower().Split(' ');
+                    UserModel newUser = new UserModel
+                    {
+                        firstName = searchTerms[1],
+                        surName = searchTerms[0],
+                        phone = "",
+                        email = tbEmail.Text,
+                        password = hashedPassword,
+                        picturePath = "john.doe@example.com",
+                        role = "",
+                        driverInfo = "",
+                        adminInfo = "",
+                        createdAt = DateTime.Now
+                    };
+                    try
+                    {
+                        await ConnectionDB.AddUser(newUser);
+                        loading.Visibility = Visibility.Collapsed;
+                        MessageBox.Show($"Регистрацияя прошла успешно"); 
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
             }
 
 

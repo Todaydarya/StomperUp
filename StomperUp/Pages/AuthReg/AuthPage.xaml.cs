@@ -23,10 +23,7 @@ namespace StomperUp.Pages.AuthReg
 
         private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            var users = await ConnectionDB.GetUsers();
-            var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
-            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pbPassword.ToString(), usersAuth.password);
-
+            loading.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(tbEmail.Text))
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите логин");
@@ -35,23 +32,31 @@ namespace StomperUp.Pages.AuthReg
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите пароль");
             }
-            do
+            else
             {
-
-            }
-            while (isPasswordCorrect);
-            MessageBox.Show($"Авторизация прошла {usersAuth.firstName}");
-            /*if (isPasswordCorrect)
-            {
-                
-            }*/
-            /*else
-            {
-                if (MessageBox.Show("Такой пользователь не зарегистрирован. Зарегистрироваться?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                var users = await ConnectionDB.GetUsers();
+                var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
+                if(usersAuth == null)
                 {
-                    NavigationClass.navigate.Navigate(new RegPage());
+                    if (MessageBox.Show("Такой пользователь не зарегистрирован. Зарегистрироваться?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        NavigationClass.navigate.Navigate(new RegPage());
+                    }
+                    loading.Visibility = Visibility.Collapsed;
                 }
-            }*/
+                else
+                {
+                    bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pbPassword.ToString(), usersAuth.password);
+
+                    do
+                    {
+                        
+                    }
+                    while (isPasswordCorrect);
+                    loading.Visibility = Visibility.Collapsed;
+                    MessageBox.Show($"Авторизация прошла {usersAuth.firstName}");
+                }
+            }
         }
 
         private void NavigateReg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -8,21 +8,41 @@ using System.Text;
 using System.Threading.Tasks;
 
     namespace StomperUp.Class
+{
+    internal class ConnectionDB
     {
-        internal class ConnectionDB
+        private static IMongoCollection<UserModel> Connect()
         {
-            public static async Task<List<UserModel>> GetUsers()
-            {
-                string connectionString = "mongodb+srv://root:root@cluster0.lwwaurf.mongodb.net/StomperTransit?retryWrites=true&w=majority";
-                MongoClient client = new MongoClient(connectionString);
+            string connectionString = "mongodb+srv://root:root@cluster0.lwwaurf.mongodb.net/StomperTransit?retryWrites=true&w=majority";
+            MongoClient client = new MongoClient(connectionString);
 
-                var db = client.GetDatabase("Stomper");
+            var database = client.GetDatabase("Stomper");
 
-                var collection = db.GetCollection<UserModel>("users");
+            var collection = database.GetCollection<UserModel>("users");
 
-                List<UserModel> users = await collection.Find(new BsonDocument()).ToListAsync();
+            return collection;
+        }
 
-                return users;
-            }
+        public static async Task<List<UserModel>> GetUsers()
+        {
+            var collection = Connect();
+            List<UserModel> users = await collection.Find(new BsonDocument()).ToListAsync();
+
+            return users;
+        }
+
+        public static async Task AddUser(UserModel user)
+        {
+            var collection = Connect();
+            await collection.InsertOneAsync(user);
+        }
+
+        public static async Task<List<UserModel>> GetAllUsers()
+        {
+            var collection = Connect();
+            List<UserModel> users = await collection.Find(new BsonDocument()).ToListAsync();
+
+            return users;
         }
     }
+}
