@@ -8,7 +8,7 @@
       xmlns:domain1="clr-namespace:StomperUp.Class"
       mc:Ignorable="d" 
       d:DesignWidth="450"
-      d:Height="auto"
+      d:Height="300"
       Title="Авторизация">
 
     <StackPanel Margin="20">

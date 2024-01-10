@@ -4,20 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StomperUp.Windows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="GmailVerification" Height="300" Width="500">
     
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Name="spEmail">
-            <TextBlock Text="Введите вашу почту" HorizontalAlignment="Center"/>
-            <TextBox Name="tbEmail" Margin="0 30"/>
-            <Button Name="btnCheckEmail" Content="Отправить" Click="btnCheckEmail_Click" Template="{StaticResource btnStyleMain}"/>
+            <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <Button Content="Продолжить" Click="btnCheckEmail_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
         </StackPanel>
 
         <StackPanel Name="spCheck" Visibility="Collapsed">
-            <TextBlock Text="Введите Код" HorizontalAlignment="Center"/>
-            <TextBox Name="tbCode" Margin="0 30"/>
-            <Button Name="btnCheckCode" Content="Проверить" Click="btnCheckCode_Click" Template="{StaticResource btnStyleMain}"/>
+            <TextBox Name="tbCode" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <Button Content="Продолжить" Click="btnCheckCode_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
             <TextBlock Text="Код не пришёл" HorizontalAlignment="Center" Opacity="0.5" FontSize="18" MouseDown="TextBlock_MouseDown"/>
         </StackPanel>
 

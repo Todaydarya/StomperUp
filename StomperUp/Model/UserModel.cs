@@ -11,23 +11,7 @@ namespace StomperUp.Model
 {
     internal class UserModel
     {
-        public static List<UserModel> Users { get; } = new List<UserModel>
-        {
-            new UserModel
-            {
-                _id = ObjectId.GenerateNewId(),
-                firstName = "John",
-                surName = "Doe",
-                email = "john.doe@example.com",
-                password = "hashedPassword",
-                picturePath = "/images/john_doe.jpg",
-                role = "user",
-                createdAt = DateTime.Now,
-                updatedAt = DateTime.Now,
-                __v = 1
-            },
-            // Добавьте других пользователей по аналогии
-        };
+        
 
         public ObjectId _id { get; set; }
         public string firstName { get; set; }
@@ -47,11 +31,5 @@ namespace StomperUp.Model
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
         public int __v { get; set; }
-
-        // Метод для поиска пользователя по email
-        public static UserModel GetUserByEmail(string email)
-        {
-            return Users.Find(u => u.email == email);
-        }
     }
 }

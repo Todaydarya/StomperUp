@@ -1,4 +1,5 @@
 ﻿using StomperUp.Class;
+using StomperUp.Model;
 using System;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -20,8 +21,8 @@ namespace StomperUp.Pages.Admin
         public async void UserDB()
         {
             var users = await ConnectionDB.GetUsers();
-            var usersAuth = users.Select(user => user._id);
-            items.ItemsSource = usersAuth;
+            items.ItemsSource = users;
+            DataContext = users;
         }
     }
 }
