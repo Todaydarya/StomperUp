@@ -7,6 +7,7 @@ using System.Linq;
 using StomperUp.Windows;
 using MaterialDesignThemes;
 using StomperUp.Pages.User;
+using BCrypt.Net;
 
 namespace StomperUp.Pages.AuthReg
 {
@@ -15,8 +16,6 @@ namespace StomperUp.Pages.AuthReg
     /// </summary>
     public partial class AuthPage : Page
     {
-        AdminWindow adminWindow = new AdminWindow();
-        MainWindow userWindow = new MainWindow();
         public AuthPage()
         {
             InitializeComponent();
@@ -24,10 +23,10 @@ namespace StomperUp.Pages.AuthReg
 
         private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            ///переделать хэширования пароля
-            var password = HashPassword.hashPassword(pbPassword.Password);
             var users = await ConnectionDB.GetUsers();
-            var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text && user.password == pbPassword.Password);
+            var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
+            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pbPassword.ToString(), usersAuth.password);
+
             if (string.IsNullOrEmpty(tbEmail.Text))
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите логин");
@@ -36,23 +35,23 @@ namespace StomperUp.Pages.AuthReg
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите пароль");
             }
-            else if (usersAuth == null)
+            do
+            {
+
+            }
+            while (isPasswordCorrect);
+            MessageBox.Show($"Авторизация прошла {usersAuth.firstName}");
+            /*if (isPasswordCorrect)
+            {
+                
+            }*/
+            /*else
             {
                 if (MessageBox.Show("Такой пользователь не зарегистрирован. Зарегистрироваться?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     NavigationClass.navigate.Navigate(new RegPage());
                 }
-            }
-            else if (usersAuth.role == "admin")
-            {
-                adminWindow.Show();
-                userWindow.Close();
-            }
-            else
-            {
-                NavigationClass.navigate.Navigate(new MainPage());
-                CheckClass.idUser = usersAuth._id.ToString();
-            }
+            }*/
         }
 
         private void NavigateReg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

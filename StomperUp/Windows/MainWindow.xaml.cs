@@ -63,7 +63,7 @@ namespace StomperUp.Windows
                 if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     AuthRegWindow authReg = new AuthRegWindow();
-                    authReg.ShowDialog();
+                    authReg.Show();
                 }
             }
             else
