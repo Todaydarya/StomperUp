@@ -33,29 +33,9 @@ namespace StomperUp.Pages.User
         {
             if (MessageBox.Show("Выйти с аккаунта?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                NavigationClass.navigate.Navigate(new AuthPage());
+                NavigationClass.navigate.Navigate(new MainPage());
                 CheckClass.idUser = null;
             }
-        }
-
-        private void deleteProfile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            /*var deleteProfile = ConnectionDB.GetUsers().users.FirstOrDefault(p => p.idUser == CheckClass.idUser);
-
-            if (MessageBox.Show($"Вы точно хотите удалить профиль?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    GetDBContext.GetContext().Users.Remove((Users)deleteProfile);
-                    GetDBContext.GetContext().SaveChanges();
-                    MessageBox.Show("Профиль удалён!");
-                    NavigationClass.navigate.Navigate(new MainPage());
-                }
-                catch
-                {
-                    MessageBox.Show("Ошибка при удалении");
-                }
-            }*/
         }
 
         private void editPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

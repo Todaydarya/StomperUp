@@ -10,5 +10,6 @@ namespace StomperUp.Class
     internal class CheckClass
     {
         public static string idUser { get; set; }
+        public static bool isAuthPage { get; set; }
     }
 }

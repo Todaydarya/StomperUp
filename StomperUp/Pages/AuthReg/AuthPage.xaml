@@ -7,8 +7,6 @@
       xmlns:local="clr-namespace:StomperUp.Pages.AuthReg" 
       xmlns:domain1="clr-namespace:StomperUp.Class"
       mc:Ignorable="d" 
-      d:DesignWidth="450"
-      d:Height="300"
       Title="Авторизация">
     <Grid>
         <StackPanel Margin="20">
@@ -24,7 +22,7 @@
             <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
 
             <TextBlock Name="Password" Text="Забыли пароль?" Style="{StaticResource UnderlineOnHover}" Margin="0 0 0 10" MouseLeftButtonDown="Password_MouseLeftButtonDown" />
-            <Button Content="Продолжить" Click="btnNext_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
+            <Button Content="Продолжить" Height="45" Click="btnNext_Click" materialDesign:ButtonAssist.CornerRadius="25" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
 
 
             <TextBlock Name="NavigateReg" Text="Впервые у нас?" MouseLeftButtonDown="NavigateReg_MouseLeftButtonDown" Style="{StaticResource UnderlineOnHover}" HorizontalAlignment="Center" Opacity="0.5" Margin="5" />

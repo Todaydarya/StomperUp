@@ -21,8 +21,8 @@
             <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
 
-            <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Пароль" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
-            <PasswordBox Name="pbPasswordCheck" materialDesign:HintAssist.Hint="Повторите пароль" materialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+            <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+            <PasswordBox Name="pbPasswordCheck" materialDesign:HintAssist.Hint="Повторите пароль" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
 
             <CheckBox Name="cbUse" Content="Условия использования" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" Checked="CheckBox_Checked" />
 

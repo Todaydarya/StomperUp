@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StomperUp.Windows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="StomperUp" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+        Title="StomperUp" Height="auto" Width="400" WindowStartupLocation="CenterScreen">
+    
     <Grid>
-        <Frame Name="mainFrame" NavigationUIVisibility="Hidden"/>
+        <Frame Name="authFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

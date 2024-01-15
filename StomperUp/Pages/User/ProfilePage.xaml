@@ -15,33 +15,35 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="50 0">
-            <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="MaterialDesignActionToggleButton">
-                <Image>
-                    <Image.Source>
-                        <Binding Path="image" TargetNullValue="{materialDesign:PackIcon Kind=GhostOutline}" />
-                    </Image.Source>
-                </Image>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <ToggleButton materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus}" Style="{StaticResource MaterialDesignActionLightToggleButton}" Width="250" Height="250">
+                <ToggleButton.Content>
+                    <Binding Path="picturePath" TargetNullValue="../Style/AvatarDefault.jpg"/>
+                </ToggleButton.Content>
             </ToggleButton>
 
-            <TextBlock Name="fullName" Text="{Binding fullName}" TextWrapping="WrapWithOverflow" FontSize="36" Margin="0 20 0 0" TextAlignment="Center"/>
-            <TextBlock Text="{Binding email}" Foreground="#C47E2D" TextAlignment="Center" Margin="0 20" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+            <TextBlock Name="fullName" Text="{Binding firstName}" TextWrapping="WrapWithOverflow" FontSize="36" Margin="0 20 0 0" TextAlignment="Center"/>
+            <TextBlock Text="{Binding email}" Foreground="#C47E2D" TextAlignment="Center" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <materialDesign:PackIcon Kind="Email" />
-                <materialDesign:PackIcon Kind="Github" />
+                <materialDesign:PackIcon Kind="Github" MouseLeftButtonDown="GitHub_MouseLeftButtonDown"/>
+                <Image Source="https://icons8.ru/icon/60454/vk-в-круге"/>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Margin="50 0" VerticalAlignment="Center">
             <StackPanel Name="spEditProfile" IsEnabled="False" Margin="0 0 0 20">
-                <TextBox materialDesign:HintAssist.Hint="День рождения" Text="{Binding birthday, StringFormat=dd.MM.yyyy}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                <TextBox materialDesign:HintAssist.Hint="Номер телефона" Text="{Binding phone}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <DatePicker x:Name="FutureDatePicker" Style="{StaticResource MaterialDesignOutlinedDatePicker}" materialDesign:CalendarAssist.Orientation="Horizontal" materialDesign:CalendarAssist.IsHeaderVisible="False" materialDesign:HintAssist.Hint="День рождения">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="birthday" UpdateSourceTrigger="PropertyChanged" StringFormat="dd.MM.yyyy"></Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <TextBox materialDesign:HintAssist.Hint="Номер телефона" materialDesign:TransitionAssist.DisableTransitions="True" Text="{Binding phone}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                 <TextBox materialDesign:HintAssist.Hint="Уровень образования" Text="{Binding education}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                 <TextBox materialDesign:HintAssist.Hint="Место проживания" Text="{Binding city}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
-                <Button Name="btnSave" Content="Сохранить" Visibility="Collapsed" Click="btnSave_Click" Template="{StaticResource btnStyleMain}" Width="220"/>
+                <Button Name="btnSave" Content="Сохранить" materialDesign:ButtonAssist.CornerRadius="25" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" Visibility="Collapsed" Click="btnSave_Click" Template="{StaticResource btnStyleMain}" Height="45"/>
             </StackPanel>
-            <Button Name="btnEdit" Content="Редактировать"  Width="220" Click="btnEdit_Click"/>
+            <Button Name="btnEdit" Content="Редактировать" materialDesign:ButtonAssist.CornerRadius="25" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand"  Height="45" Click="btnEdit_Click"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -10,35 +10,48 @@
       Title="MainPage">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <!-- and here's another -->
-        <ItemsControl Name="items">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border x:Name="Border" Padding="8"  BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton VerticalAlignment="Center" Content="{Binding Code}" IsChecked="{Binding IsSelected}"  Style="{StaticResource MaterialDesignActionLightToggleButton}" />
-                            <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                <TextBlock FontWeight="Bold" Text="{Binding firstName}" />
-                                <TextBlock Text="{Binding surName}" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                            <Setter  TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <materialDesign:ColorZone Padding="5" Mode="Dark">
+            <DockPanel>
+                <StackPanel materialDesign:RippleAssist.IsCentered="True" Orientation="Horizontal">
+                    
+                    <ComboBox Name="cbUserAndCourse" materialDesign:ColorZoneAssist.Mode="Standard" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignPaper}" BorderThickness="0" SelectedIndex="1">
+                        <ComboBoxItem Content="Курсы"/>
+                        <ComboBoxItem Content="Пользователи"/>
+                    </ComboBox>
+
+                    <TextBox Name="tbSearch" MinWidth="200" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поиск" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:ElevationAssist.Elevation="Dp12"/>
+
+                    <Button Name="add" Command="{Binding OnDialogOpened}" Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}">
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
+        
+        <ListView Name="items" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding firstName}" Header="Имя" />
+                    <GridViewColumn DisplayMemberBinding="{Binding surName}" Header="Фамилия" />
+                    <GridViewColumn DisplayMemberBinding="{Binding email}" Header="Почта" />
+                    <GridViewColumn DisplayMemberBinding="{Binding phone}" Header="Телефон" />
+                    <GridViewColumn Header="Роль" DisplayMemberBinding="{Binding role}"/>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="editUser" Padding="0" Click="editUser_Click">
+                                    <materialDesign:PackIcon Kind="Edit" Width="20"/>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

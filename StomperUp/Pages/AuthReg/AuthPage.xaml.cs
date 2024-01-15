@@ -8,6 +8,9 @@ using StomperUp.Windows;
 using MaterialDesignThemes;
 using StomperUp.Pages.User;
 using BCrypt.Net;
+using StomperUp.Model;
+using System.Collections.Generic;
+using System;
 
 namespace StomperUp.Pages.AuthReg
 {
@@ -19,11 +22,11 @@ namespace StomperUp.Pages.AuthReg
         public AuthPage()
         {
             InitializeComponent();
+            CheckClass.isAuthPage = true;
         }
 
         private async void btnNext_Click(object sender, RoutedEventArgs e)
-        {
-            loading.Visibility = Visibility.Visible;
+        {            
             if (string.IsNullOrEmpty(tbEmail.Text))
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите логин");
@@ -34,7 +37,8 @@ namespace StomperUp.Pages.AuthReg
             }
             else
             {
-                var users = await ConnectionDB.GetUsers();
+                loading.Visibility = Visibility.Visible;
+                List<UserModel> users = await ConnectionDB.GetUsers();
                 var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
                 if(usersAuth == null)
                 {
@@ -54,11 +58,40 @@ namespace StomperUp.Pages.AuthReg
                     }
                     while (isPasswordCorrect);
                     loading.Visibility = Visibility.Collapsed;
-                    MessageBox.Show($"Авторизация прошла {usersAuth.firstName}");
+                    if (usersAuth.role == "admin")
+                    {
+                        AuthClose();
+                        AdminWindow w2 = new AdminWindow();
+
+                        w2.Closed += new EventHandler(w2_Closed);
+                        (Application.Current.MainWindow as MainWindow).Hide();
+                        w2.Show();
+                    }
+                    else
+                    {
+                        CheckClass.idUser = usersAuth._id.ToString();
+                        CheckClass.isAuthPage = false;
+                        MessageBox.Show($"Добро пожаловать, {usersAuth.firstName}");
+                        AuthClose();
+                    }
                 }
             }
         }
-
+        void AuthClose()
+        {
+            foreach (Window window in App.Current.Windows)
+            {
+                if (window.IsActive == true)
+                {
+                    window.Close();
+                }
+            }
+        }
+        void w2_Closed(object sender, EventArgs e)
+        {
+            (Application.Current.MainWindow as MainWindow).Close();
+            // или (Application.Current.MainWindow as MainWindow).Show(); если нужно продолжить работу
+        }
         private void NavigateReg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NavigationClass.navigate.Navigate(new RegPage());

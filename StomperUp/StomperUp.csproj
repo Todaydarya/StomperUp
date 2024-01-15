@@ -293,17 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mongocrypt.dll" />
-    <Resource Include="Style\Icons\Achievements.png" />
-    <Resource Include="Style\Icons\Curriculum.png" />
-    <Resource Include="Style\Icons\Discord.png" />
-    <Resource Include="Style\Icons\Github.png" />
-    <Resource Include="Style\Icons\logo-white.ico" />
-    <Resource Include="Style\Icons\Main.png" />
-    <Resource Include="Style\Icons\Profile.png" />
-    <Resource Include="Style\Icons\Settings.png" />
-    <Resource Include="Style\Icons\Task.png" />
-    <Resource Include="Style\Icons\Telegram.png" />
-    <Resource Include="Style\Icons\VK.png" />
+    <Resource Include="Style\AvatarDefault.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MongoDB.Libmongocrypt.1.8.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.8.0\build\MongoDB.Libmongocrypt.targets')" />

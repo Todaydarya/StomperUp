@@ -17,8 +17,8 @@
         </ListBox>
 
         
-        <control:AutoCompleteBox Name="tbSearch"></control:AutoCompleteBox>
-        <TextBox Name="tbSearch1" VerticalAlignment="Top" materialDesign:HintAssist.Hint="Поиск" IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordBoxEnabledComboBox}" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <!--<control:AutoCompleteBox Name="tbSearch"></control:AutoCompleteBox>-->
+        <TextBox Name="tbSearch" VerticalAlignment="Top" materialDesign:HintAssist.Hint="Поиск" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
         <Button Name="btbSerch">
             <StackPanel Margin="-5">

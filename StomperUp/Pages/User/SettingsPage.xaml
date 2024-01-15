@@ -27,7 +27,6 @@
         
         <WrapPanel Orientation="Horizontal" Margin="0 20">
             <TextBlock Name="exitProfile" Text="Выйти с аккаунта" Margin="20 0" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="exitProfile_MouseLeftButtonDown"/>
-            <TextBlock Name="deleteProfile" Text="Удалить аккаунт" Foreground="#FF6262" Margin="20 0" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="deleteProfile_MouseLeftButtonDown"/>
             <TextBlock Name="editPassword" Text="Изменить пароль" Margin="20 0" MouseLeftButtonDown="editPassword_MouseLeftButtonDown" Style="{StaticResource UnderlineOnHover}"/>
         </WrapPanel>
     </WrapPanel>

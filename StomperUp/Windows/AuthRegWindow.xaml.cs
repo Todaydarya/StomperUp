@@ -1,6 +1,16 @@
 ﻿using StomperUp.Class;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using StomperUp.Pages.AuthReg;
+using System.Linq;
+using StomperUp.Windows;
+using MaterialDesignThemes;
+using StomperUp.Pages.User;
+using BCrypt.Net;
+using StomperUp.Model;
+using System.Collections.Generic;
+using System;
 
 namespace StomperUp.Windows
 {
@@ -12,8 +22,8 @@ namespace StomperUp.Windows
         public AuthRegWindow()
         {
             InitializeComponent();
-            mainFrame.Navigate(new AuthPage());
-            NavigationClass.navigate = mainFrame;
+            authFrame.Navigate(new AuthPage());
+            NavigationClass.navigate = authFrame;
         }
     }
 }
