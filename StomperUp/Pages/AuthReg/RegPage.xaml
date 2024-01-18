@@ -17,14 +17,14 @@
                 <TextBlock Text="Регистрация" FontWeight="Bold"/>
             </StackPanel>
 
-            <TextBox Name="tbFIO" materialDesign:HintAssist.Hint="ФИО" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-            <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBox Name="tbFIO" materialDesign:HintAssist.Hint="ФИО" Style="{StaticResource MaterialDesignOutlinedTextBox}" KeyDown="tbFIO_KeyDown"/>
+            <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}" KeyDown="tbEmail_KeyDown"/>
 
 
-            <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
-            <PasswordBox Name="pbPasswordCheck" materialDesign:HintAssist.Hint="Повторите пароль" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+            <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" KeyDown="pbPassword_KeyDown"/>
+            <PasswordBox Name="pbPasswordCheck" materialDesign:HintAssist.Hint="Повторите пароль" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" KeyDown="pbPasswordCheck_KeyDown"/>
 
-            <CheckBox Name="cbUse" Content="Условия использования" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" Checked="CheckBox_Checked" />
+            <CheckBox Name="cbUse" Content="Условия использования" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" Checked="CheckBox_Checked" KeyDown="cbUse_KeyDown"/>
 
             <Button Name="btnNext" Content="Продолжить" Click="btnNext_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
             <materialDesign:Snackbar x:Name="SnackbarFour" VerticalAlignment="Bottom" MessageQueue="{materialDesign:MessageQueue}" />

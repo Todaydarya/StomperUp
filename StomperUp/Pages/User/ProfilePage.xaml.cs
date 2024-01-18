@@ -30,7 +30,8 @@ namespace StomperUp.Pages.User
         public async void UserDB()
         {
             var users = await ConnectionDB.GetUsers();
-            DataContext = users;
+            var userSelect = users.Where(p => p._id.ToString() == CheckClass.idUser);
+            DataContext = userSelect;
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {

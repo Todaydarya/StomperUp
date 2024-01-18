@@ -24,9 +24,58 @@ namespace StomperUp.Pages.AuthReg
             InitializeComponent();
             CheckClass.isAuthPage = true;
         }
+                
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            Authorization();
+        }
 
-        private async void btnNext_Click(object sender, RoutedEventArgs e)
-        {            
+        private void pbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterCheck(e);
+        }
+
+
+        private void tbEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterCheck(e);
+        }
+
+        public void EnterCheck(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Authorization();
+            }
+        }
+
+        private void NavigateReg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigationClass.navigate.Navigate(new RegPage());
+        }
+
+        private void reg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigationClass.navigate.Navigate(new RegPage());
+        }
+
+        private void Password_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            GmailVerification gmail = new GmailVerification();
+            gmail.ShowDialog();
+        }
+
+
+        private void tbLogin_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+
+        
+
+        
+        public async void Authorization()
+        {
             if (string.IsNullOrEmpty(tbEmail.Text))
             {
                 SnackbarFour.MessageQueue.Enqueue("Введите логин");
@@ -40,7 +89,7 @@ namespace StomperUp.Pages.AuthReg
                 loading.Visibility = Visibility.Visible;
                 List<UserModel> users = await ConnectionDB.GetUsers();
                 var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
-                if(usersAuth == null)
+                if (usersAuth == null)
                 {
                     if (MessageBox.Show("Такой пользователь не зарегистрирован. Зарегистрироваться?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
@@ -54,7 +103,7 @@ namespace StomperUp.Pages.AuthReg
 
                     do
                     {
-                        
+
                     }
                     while (isPasswordCorrect);
                     loading.Visibility = Visibility.Collapsed;
@@ -92,25 +141,6 @@ namespace StomperUp.Pages.AuthReg
             (Application.Current.MainWindow as MainWindow).Close();
             // или (Application.Current.MainWindow as MainWindow).Show(); если нужно продолжить работу
         }
-        private void NavigateReg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            NavigationClass.navigate.Navigate(new RegPage());
-        }
 
-        private void reg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            NavigationClass.navigate.Navigate(new RegPage());
-        }
-
-        private void tbLogin_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-
-        }
-
-        private void Password_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            GmailVerification gmail = new GmailVerification();
-            gmail.ShowDialog();
-        }
     }
 }

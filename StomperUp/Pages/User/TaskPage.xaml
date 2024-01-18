@@ -4,11 +4,88 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StomperUp.Pages.User"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TaskPage">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
+            <ItemsControl Name="lvTask">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="Border" Padding="10" Margin="10" BorderThickness="1" CornerRadius="15">
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Name="cbCheck" Checked="cbCheck_Checked" Unchecked="cbCheck_Unchecked">
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding isActive}" Value="False">
+                                                    <Setter Property="IsChecked" Value="True"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding isActive}" Value="True">
+                                                    <Setter Property="IsChecked" Value="False"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
+                                <TextBlock Name="tbNameTask" Text="{Binding taskName}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding isActive}" Value="False">
+                                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Button Name="btnDeleteTask" Click="btnDeleteTask_Click">
+                                    <materialDesign:PackIcon Kind="Delete"/>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding isActive}" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBox Name="tbAddTask" MinWidth="200" KeyDown="tbAddTask_KeyDown" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <Button Name="btnAddTask" Click="btnAddTask_Click">
+                    <materialDesign:PackIcon Kind="Check"/>
+                </Button>
+            </StackPanel>
+        </Grid>
         
+        
+
+        <StackPanel Grid.Column="1">
+            <StackPanel>
+                <CheckBox IsChecked="{Binding IsSelected}" />
+                <TextBox Text="{Binding Name}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <materialDesign:Clock Width="auto" DisplayAutomation="CycleWithSeconds" Is24Hours="True" Style="{StaticResource MaterialDesignClockHorizontal}" Visibility="Collapsed"/>
+                <Calendar materialDesign:CalendarAssist.Orientation="Horizontal" Visibility="Collapsed"/>
+                <ComboBox x:Name="OutlinedComboBox" materialDesign:HintAssist.Hint="Повтор" IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}" ItemsSource="{Binding ShortStringList}" Style="{StaticResource MaterialDesignOutlinedComboBox}" Visibility="Collapsed"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

@@ -214,6 +214,7 @@
     <Compile Include="Class\HashPassword.cs" />
     <Compile Include="Class\NavigationClass.cs" />
     <Compile Include="Class\ValidationClass.cs" />
+    <Compile Include="Model\TaskModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Pages\Admin\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

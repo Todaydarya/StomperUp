@@ -16,10 +16,10 @@
                 <TextBlock Name="reg" Text="Регистрация" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="reg_MouseLeftButtonDown" />
             </StackPanel>
 
-            <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}" KeyDown="tbEmail_KeyDown"/>
 
 
-            <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+            <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" KeyDown="pbPassword_KeyDown"/>
 
             <TextBlock Name="Password" Text="Забыли пароль?" Style="{StaticResource UnderlineOnHover}" Margin="0 0 0 10" MouseLeftButtonDown="Password_MouseLeftButtonDown" />
             <Button Content="Продолжить" Height="45" Click="btnNext_Click" materialDesign:ButtonAssist.CornerRadius="25" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
