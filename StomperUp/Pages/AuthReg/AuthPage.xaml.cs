@@ -23,6 +23,7 @@ namespace StomperUp.Pages.AuthReg
         {
             InitializeComponent();
             CheckClass.isAuthPage = true;
+            tbEmail.Focus();
         }
                 
         private void btnNext_Click(object sender, RoutedEventArgs e)

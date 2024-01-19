@@ -145,6 +145,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Admin\AddCoursePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Admin\AddLessonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Admin\AddTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Admin\AddUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Admin\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,8 +230,24 @@
     <Compile Include="Class\HashPassword.cs" />
     <Compile Include="Class\NavigationClass.cs" />
     <Compile Include="Class\ValidationClass.cs" />
+    <Compile Include="Model\AchievementsModel.cs" />
+    <Compile Include="Model\CourseModel.cs" />
+    <Compile Include="Model\LessonsModel.cs" />
     <Compile Include="Model\TaskModel.cs" />
+    <Compile Include="Model\TestModel.cs" />
     <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Pages\Admin\AddCoursePage.xaml.cs">
+      <DependentUpon>AddCoursePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\AddLessonPage.xaml.cs">
+      <DependentUpon>AddLessonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\AddTestPage.xaml.cs">
+      <DependentUpon>AddTestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\AddUserPage.xaml.cs">
+      <DependentUpon>AddUserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Admin\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

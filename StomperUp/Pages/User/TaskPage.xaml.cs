@@ -110,8 +110,6 @@ namespace StomperUp.Pages.User
                     isPriority = "",
                     remind = default,
                     replay = "",
-
-                    createdAt = DateTime.Now
                 };
                 try
                 {

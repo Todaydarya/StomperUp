@@ -20,10 +20,8 @@ namespace StomperUp.Model
         public string password { get; set; }
         public string picturePath { get; set; }
         public string role { get; set; }
-
-
-        public DateTime createdAt { get; set; }
-        public DateTime updatedAt { get; set; }
-        public int __v { get; set; }
+        public string activeCourses { get; set; }
+        public string receivedAchievements { get; set; }
+        public int coin { get; set; }
     }
 }

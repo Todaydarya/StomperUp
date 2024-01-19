@@ -1,0 +1,28 @@
+﻿<Page x:Class="StomperUp.Pages.Admin.AddCoursePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StomperUp.Pages.Admin"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      Title="AddCoursePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Name="btnBack" Content="Назад" Click="btnBack_Click"/>
+
+        <WrapPanel Grid.Row="1" Orientation="Vertical">
+            <TextBox Name="tbName" materialDesign:HintAssist.Hint="Название" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBox Name="tbProgrammingLanguage" materialDesign:HintAssist.Hint="Язык программирования" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBox Name="tbCoin" materialDesign:HintAssist.Hint="Монеты" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+        </WrapPanel>
+
+        <Button Name="btnNext" Grid.Row="2" Content="Продолжить" Click="btnNext_Click"/>
+    </Grid>
+</Page>

@@ -9,6 +9,6 @@
       Title="AchievementsPage">
 
     <Grid>
-        
+        <TextBlock Text="Достижения"/>
     </Grid>
 </Page>

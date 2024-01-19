@@ -8,6 +8,6 @@
         mc:Ignorable="d"
         Title="Режим администратора" Height="450" Width="800" WindowState="Maximized">
     <Grid>
-        <Frame Name="mainFrame" NavigationUIVisibility="Hidden" Grid.Row="1"/>
+        <Frame Name="adminFrame" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
 </Window>

@@ -1,6 +1,4 @@
-﻿using StomperUp.Class;
-using StomperUp.Pages.Admin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,21 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using StomperUp.Model;
 
-namespace StomperUp.Windows
+namespace StomperUp.Pages.Admin
 {
     /// <summary>
-    /// Логика взаимодействия для AdminWindow.xaml
+    /// Логика взаимодействия для AddUserPage.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class AddUserPage : Page
     {
-        public AdminWindow()
+        public AddUserPage()
         {
             InitializeComponent();
-            adminFrame.Navigate(new MainPage());
-            NavigationClass.navigate = adminFrame;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

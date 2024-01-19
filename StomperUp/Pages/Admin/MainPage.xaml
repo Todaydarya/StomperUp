@@ -19,14 +19,14 @@
             <DockPanel>
                 <StackPanel materialDesign:RippleAssist.IsCentered="True" Orientation="Horizontal">
                     
-                    <ComboBox Name="cbUserAndCourse" materialDesign:ColorZoneAssist.Mode="Standard" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignPaper}" BorderThickness="0" SelectedIndex="1">
+                    <ComboBox Name="cbUserAndCourse"  materialDesign:ColorZoneAssist.Mode="Standard" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignPaper}" BorderThickness="0" SelectedIndex="1" SelectionChanged="cbUserAndCourse_SelectionChanged">
                         <ComboBoxItem Content="Курсы"/>
                         <ComboBoxItem Content="Пользователи"/>
                     </ComboBox>
 
                     <TextBox Name="tbSearch" MinWidth="200" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поиск" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:ElevationAssist.Elevation="Dp12"/>
 
-                    <Button Name="add" Command="{Binding OnDialogOpened}" Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}">
+                    <Button Name="add" Click="add_Click" Command="{Binding OnDialogOpened}" Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}">
                         <materialDesign:PackIcon Kind="Plus" />
                     </Button>
                 </StackPanel>

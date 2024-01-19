@@ -17,10 +17,5 @@ namespace StomperUp.Model
         public string isPriority { get; set; }
         public DateTime remind { get; set; }
         public string replay { get; set; }
-
-
-        public DateTime createdAt { get; set; }
-        public DateTime updatedAt { get; set; }
-        public int __v { get; set; }
     }
 }

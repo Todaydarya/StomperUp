@@ -92,5 +92,21 @@ using System.Threading.Tasks;
             await collection.UpdateOneAsync(filter, update);
         }
         #endregion
+
+
+        #region Курсы
+        private static IMongoCollection<CourseModel> ConnectCourse()
+        {
+            return Connect<CourseModel>("course");
+        }
+
+        public static async Task<List<CourseModel>> GetCourse()
+        {
+            var collection = ConnectCourse();
+            List<CourseModel> course = await collection.Find(new BsonDocument()).ToListAsync();
+
+            return course;
+        }
+        #endregion
     }
 }
