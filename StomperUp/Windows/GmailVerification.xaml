@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StomperUp.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="GmailVerification" Height="300" Width="500">
+        Title="GmailVerification" Height="300" Width="500" WindowStartupLocation="CenterScreen">
     
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Name="spEmail">
@@ -15,10 +15,13 @@
         </StackPanel>
 
         <StackPanel Name="spCheck" Visibility="Collapsed">
-            <TextBox Name="tbCode" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-            <Button Content="Продолжить" Click="btnCheckCode_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
-            <TextBlock Text="Код не пришёл" HorizontalAlignment="Center" Opacity="0.5" FontSize="18" MouseDown="TextBlock_MouseDown"/>
+            <TextBox Name="tbCode" materialDesign:HintAssist.Hint="Код подтверждения" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <Button Name="btnCode" Content="Продолжить" Click="btnCheckCode_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
         </StackPanel>
 
+        <StackPanel Name="spPassword" Visibility="Collapsed">
+            <TextBox Name="tbPassword" materialDesign:HintAssist.Hint="Новый пароль" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <Button Name="btnPassword" Content="Подтвердить" Click="btnPassword_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
+        </StackPanel>
     </StackPanel>
 </Window>

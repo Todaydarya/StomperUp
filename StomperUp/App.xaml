@@ -42,14 +42,6 @@
                 <Setter Property="FontSize" Value="24"/>
             </Style>
 
-            <Style TargetType="TextBlock" x:Key="tbHeading">
-                <Setter Property="FontSize" Value="64"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="FontFamily" Value="Raleway Black"/>
-                <Setter Property="Foreground" Value="White"/>
-            </Style>
-
             <!--Подчёркивание при наведении-->
             <Style x:Key="UnderlineOnHover" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="Raleway Black"/>

@@ -38,9 +38,11 @@ namespace StomperUp.Pages.User
             }
         }
 
-        private void editPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void editPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            GmailVerification gmail = new GmailVerification();
+            var users = await ConnectionDB.GetUsers();
+            var usersAuth = users.FirstOrDefault(user => user._id.ToString() == CheckClass.idUser);
+            GmailVerification gmail = new GmailVerification(usersAuth.email);
             gmail.ShowDialog();
         }
     }

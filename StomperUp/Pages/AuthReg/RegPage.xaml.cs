@@ -114,7 +114,7 @@ namespace StomperUp.Pages.AuthReg
                 {
                     if (MessageBox.Show("Такой пользователь уже зарегистрирован. Восстановить аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        GmailVerification mail = new GmailVerification();
+                        GmailVerification mail = new GmailVerification(usersAuth.email);
                         mail.ShowDialog();
                     }
                 }

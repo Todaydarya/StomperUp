@@ -49,6 +49,14 @@ using System.Threading.Tasks;
             var collection = ConnectUser();
             await collection.InsertOneAsync(user);
         }
+
+        public static async Task UpdateUser(string userId, UserModel updatedUser)
+        {
+            var collection = ConnectUser();
+            var filter = Builders<UserModel>.Filter.Eq("_id", userId);
+            var update = Builders<UserModel>.Update.Set(u => u.password, updatedUser.password);
+            await collection.UpdateOneAsync(filter, update);
+        }
         #endregion
 
         #region Task

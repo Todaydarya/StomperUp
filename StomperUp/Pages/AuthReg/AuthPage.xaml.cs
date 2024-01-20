@@ -62,8 +62,11 @@ namespace StomperUp.Pages.AuthReg
 
         private void Password_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            GmailVerification gmail = new GmailVerification();
+            AuthClose();
+            CheckClass.isAuthPage = false;
+            GmailVerification gmail = new GmailVerification(null);
             gmail.ShowDialog();
+            
         }
 
 
