@@ -17,11 +17,6 @@ namespace StomperUp.Windows
     public partial class GmailVerification : Window
     {
         string randomCode;
-        /*private NetworkChecker networkChecker;*/
-       /* private bool IsInternetAvailable()
-        {
-            return networkChecker.IsInternetAvailable();
-        }*/
         public GmailVerification(string user)
         {
             InitializeComponent();
@@ -37,7 +32,6 @@ namespace StomperUp.Windows
                 spEmail.Visibility = Visibility.Visible;
                 spCheck.Visibility = Visibility.Collapsed;
             }
-            /*networkChecker = new NetworkChecker();*/
         }
 
         private async void btnCheckEmail_Click(object sender, RoutedEventArgs e)

@@ -23,5 +23,13 @@ namespace StomperUp.Model
         public string activeCourses { get; set; }
         public string receivedAchievements { get; set; }
         public int coin { get; set; }
+
+        public string fullName
+        {
+            get
+            {
+                return $"{surName} {firstName} {middleName}";
+            }
+        }
     }
 }

@@ -18,13 +18,14 @@
         <materialDesign:ColorZone Padding="5" Mode="Dark">
             <DockPanel>
                 <StackPanel materialDesign:RippleAssist.IsCentered="True" Orientation="Horizontal">
-                    
+
+                    <TextBox Name="tbSearch" MinWidth="200" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поиск" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:ElevationAssist.Elevation="Dp12"/>
+
                     <ComboBox Name="cbUserAndCourse"  materialDesign:ColorZoneAssist.Mode="Standard" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignPaper}" BorderThickness="0" SelectedIndex="1" SelectionChanged="cbUserAndCourse_SelectionChanged">
                         <ComboBoxItem Content="Курсы"/>
                         <ComboBoxItem Content="Пользователи"/>
                     </ComboBox>
 
-                    <TextBox Name="tbSearch" MinWidth="200" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поиск" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:ElevationAssist.Elevation="Dp12"/>
 
                     <Button Name="add" Click="add_Click" Command="{Binding OnDialogOpened}" Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}">
                         <materialDesign:PackIcon Kind="Plus" />
@@ -32,26 +33,143 @@
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
+
+
+        <Grid Grid.Row="1" Name="gridUsers">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer>
+                <ItemsControl Name="items" MouseLeftButtonDown="items_MouseLeftButtonDown">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="250" Height="250">
+                                <Grid>
+                                    <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Ellipse  Width="140" Height="140" StrokeThickness="1" Stroke="Black">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding picturePath}"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <TextBlock Text="{Binding fullName}" Margin="10 0" TextWrapping="Wrap" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                    </StackPanel>
+
+                                    <StackPanel Name="additionalInfo" Orientation="Vertical" Margin="10" VerticalAlignment="Bottom" Height="0">
+                                        <StackPanel.Background>
+                                            <SolidColorBrush Color="White"/>
+                                        </StackPanel.Background>
+                                        <TextBlock Text="{Binding fullName}" Margin="10 0" TextWrapping="Wrap" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding email}"/>
+                                        <TextBlock Text="{Binding phone}"/>
+                                        <TextBlock Text="{Binding role}"/>
+                                        <TextBlock Text="{Binding coin}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <DataTemplate.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="additionalInfo" Storyboard.TargetProperty="Height" To="220" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="additionalInfo" Storyboard.TargetProperty="Height" To="0" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Border Name="editUser" Grid.Column="1" BorderThickness="2" BorderBrush="Black" CornerRadius="20" Margin="20" Padding="10" Width="500" Visibility="Collapsed">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <Grid x:Name="gridUser">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Ellipse  Width="140" Height="140" StrokeThickness="1" Stroke="Black" VerticalAlignment="Center">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding picturePath}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <TextBlock Text="{Binding fullName}" Margin="10 0" TextWrapping="Wrap" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+                            <Button Name="btnClose" Click="btnClose_Click" Grid.Column="2">
+                                <materialDesign:PackIcon Kind="Close"/>
+                            </Button>
+                        </Grid>
+
+                        <StackPanel Orientation="Vertical" Grid.Row="1">
+                            <TextBox Name="tbEmail" Text="{Binding email}" materialDesign:HintAssist.Hint="Почта" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <TextBox Name="tbPhone" Text="{Binding phone}" materialDesign:HintAssist.Hint="Телефон" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <ComboBox Name="cbRole" Text="{Binding role}" materialDesign:HintAssist.Hint="Роль">
+                                <ComboBoxItem Content="admin"/>
+                                <ComboBoxItem Content="user"/>
+                            </ComboBox>
+                            <TextBox Name="tbCoin" Text="{Binding coin}" materialDesign:HintAssist.Hint="Монеты" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <Button Name="SaveUser" Content="Сохранить" Click="SaveUser_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
         
-        <ListView Name="items" Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding firstName}" Header="Имя" />
-                    <GridViewColumn DisplayMemberBinding="{Binding surName}" Header="Фамилия" />
-                    <GridViewColumn DisplayMemberBinding="{Binding email}" Header="Почта" />
-                    <GridViewColumn DisplayMemberBinding="{Binding phone}" Header="Телефон" />
-                    <GridViewColumn Header="Роль" DisplayMemberBinding="{Binding role}"/>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Name="editUser" Padding="0" Click="editUser_Click">
-                                    <materialDesign:PackIcon Kind="Edit" Width="20"/>
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        
+        <Grid Grid.Row="1" Name="gridCourse" Visibility="Collapsed">
+            <ScrollViewer>
+                <ItemsControl Name="itemCourse" MouseLeftButtonDown="itemCourse_MouseLeftButtonDown">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" MinWidth="550" Height="100">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding nameCourse}" Margin="10 0" TextWrapping="Wrap"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding countLesson}"/>
+                                            <TextBlock Text="{Binding coin}"/>
+                                            <TextBlock Text="{Binding programmingLanguage}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Button Name="btnInfo" Click="btnInfo_Click" Grid.Row="1" Margin="10 0">
+                                        <materialDesign:PackIcon Kind="NextTitle"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

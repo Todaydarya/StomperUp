@@ -157,10 +157,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Admin\AddUserPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Admin\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -209,11 +205,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Admin\AddCourse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Admin\AddLesson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AuthRegWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\GmailVerification.xaml">
+    <Page Include="Windows\User\GmailVerification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -245,9 +249,6 @@
     <Compile Include="Pages\Admin\AddTestPage.xaml.cs">
       <DependentUpon>AddTestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\AddUserPage.xaml.cs">
-      <DependentUpon>AddUserPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Admin\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -278,10 +279,16 @@
     <Compile Include="Windows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Admin\AddCourse.xaml.cs">
+      <DependentUpon>AddCourse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Admin\AddLesson.xaml.cs">
+      <DependentUpon>AddLesson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AuthRegWindow.xaml.cs">
       <DependentUpon>AuthRegWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\GmailVerification.xaml.cs">
+    <Compile Include="Windows\User\GmailVerification.xaml.cs">
       <DependentUpon>GmailVerification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
@@ -326,7 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mongocrypt.dll" />
-    <Resource Include="Style\AvatarDefault.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MongoDB.Libmongocrypt.1.8.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.8.0\build\MongoDB.Libmongocrypt.targets')" />

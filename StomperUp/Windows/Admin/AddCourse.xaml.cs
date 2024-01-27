@@ -10,29 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StomperUp.Pages.Admin
+namespace StomperUp.Windows.Admin
 {
     /// <summary>
-    /// Логика взаимодействия для AddUserPage.xaml
+    /// Логика взаимодействия для AddCourse.xaml
     /// </summary>
-    public partial class AddUserPage : Page
+    public partial class AddCourse : Window
     {
-        public AddUserPage()
+        public AddCourse()
         {
             InitializeComponent();
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnNext_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

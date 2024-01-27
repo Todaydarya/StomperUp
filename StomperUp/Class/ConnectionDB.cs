@@ -88,7 +88,7 @@ using System.Threading.Tasks;
             await collection.DeleteOneAsync(filter);
         }
 
-        ///Что за редактирование???
+        
         public static async Task UpdateTask(ObjectId taskId, TaskModel updatedTask)
         {
             var collection = ConnectTask();
