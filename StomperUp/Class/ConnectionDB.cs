@@ -30,7 +30,6 @@ using System.Threading.Tasks;
             return collection;
         }
 
-        #region User
         private static IMongoCollection<UserModel> ConnectUser()
         {
             return Connect<UserModel>("users");
@@ -50,16 +49,30 @@ using System.Threading.Tasks;
             await collection.InsertOneAsync(user);
         }
 
-        public static async Task UpdateUser(string userId, UserModel updatedUser)
+        public static async Task UpdateUserPassword(string userId, UserModel updatedUser)
         {
             var collection = ConnectUser();
             var filter = Builders<UserModel>.Filter.Eq("_id", userId);
             var update = Builders<UserModel>.Update.Set(u => u.password, updatedUser.password);
             await collection.UpdateOneAsync(filter, update);
         }
-        #endregion
 
-        #region Task
+        public static async Task UpdateUser(ObjectId userId, UserModel updatedUser)
+        {
+            var collection = ConnectUser();
+            var filter = Builders<UserModel>.Filter.Eq("_id", userId);
+
+            var update = Builders<UserModel>.Update
+                .Set(u => u.phone, updatedUser.phone)
+                .Set(u => u.firstName, updatedUser.firstName)
+                .Set(u => u.surName, updatedUser.surName)
+                .Set(u => u.middleName, updatedUser.middleName)
+                .Set(u => u.coin, updatedUser.coin)
+                .Set(u => u.role, updatedUser.role)
+                .Set(u => u.email, updatedUser.email);
+
+            await collection.UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
+        }
         private static IMongoCollection<TaskModel> ConnectTask()
         {
             return Connect<TaskModel>("task");
@@ -88,26 +101,21 @@ using System.Threading.Tasks;
             await collection.DeleteOneAsync(filter);
         }
 
-        
+
         public static async Task UpdateTask(ObjectId taskId, TaskModel updatedTask)
         {
             var collection = ConnectTask();
 
             var filter = Builders<TaskModel>.Filter.Eq("_id", taskId);
 
-            var update = Builders<TaskModel>.Update.Set("isActive", updatedTask.isActive).CurrentDate("updatedAt");
+            UpdateDefinition<TaskModel> update = Builders<TaskModel>.Update.Set("isActive", updatedTask.isActive);
 
             await collection.UpdateOneAsync(filter, update);
         }
-        #endregion
-
-
-        #region Курсы
         private static IMongoCollection<CourseModel> ConnectCourse()
         {
             return Connect<CourseModel>("course");
         }
-
         public static async Task<List<CourseModel>> GetCourse()
         {
             var collection = ConnectCourse();
@@ -115,6 +123,5 @@ using System.Threading.Tasks;
 
             return course;
         }
-        #endregion
     }
 }

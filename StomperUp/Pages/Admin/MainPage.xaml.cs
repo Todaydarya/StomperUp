@@ -120,31 +120,33 @@ namespace StomperUp.Pages.Admin
 
         private async void SaveUser_Click(object sender, RoutedEventArgs e)
         {
-            /*if (editUser.DataContext is List<UserModel> userList && userList.Count > 0)
+            if (editUser.DataContext is List<UserModel> userList && userList.Count > 0)
             {
                 UserModel selectedItem = userList[0];
-                var user = await ConnectionDB.GetUsers();
-                var userToUpdate = user.FirstOrDefault(u => u._id.ToString() == selectedItem._id.ToString());
-                if (userToUpdate != null)
+                var userToUpdate = userList.FirstOrDefault(u => u._id == selectedItem._id);
+                string[] searchTerms = tbFullName.Text.ToLower().Split(' ');
+                var updatedUser = new UserModel
                 {
-                    var updatedUser = new UserModel
-                    {
-                        phone = tbPhone.Text
-                    };
-                    ObjectId userId = userToUpdate._id;
-                    await ConnectionDB.UpdateUserPhone(userId,updatedUser);
-                    editUser.Visibility = Visibility.Collapsed;
-                    UserDB();
-                }
-                else
-                {
-                    MessageBox.Show("Выбранный пользователь не найден.");
-                }
+                    firstName = searchTerms[1],
+                    surName = searchTerms[0],
+                    middleName = searchTerms[2],
+                    phone = tbPhone.Text,
+                    coin = int.Parse(tbCoin.Text),
+                    email = tbEmail.Text,
+                    role = cbRole.Text,
+                    picturePath = ""
+                };
+                await ConnectionDB.UpdateUser(userToUpdate._id, updatedUser);
+
+                MessageBox.Show("Пользователь успешно обновлен");
+                editUser.Visibility = Visibility.Collapsed;
+                UserDB();
             }
             else
             {
-                MessageBox.Show("Список пользователей пуст или не является списком UserModel.");
-            }*/
+                MessageBox.Show("Список пользователей пуст");
+            }
+
 
         }
 

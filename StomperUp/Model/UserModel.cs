@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel;
 
 namespace StomperUp.Model
 {
@@ -30,6 +31,23 @@ namespace StomperUp.Model
             {
                 return $"{surName} {firstName} {middleName}";
             }
+            set
+            {
+                string[] parts = value.Split(' ');
+                if (parts.Length >= 3)
+                {
+                    surName = parts[0];
+                    firstName = parts[1];
+                    middleName = parts[2];
+                    OnPropertyChanged(nameof(fullName));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

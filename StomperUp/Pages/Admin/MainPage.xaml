@@ -117,7 +117,7 @@
                                 </Ellipse.Fill>
                             </Ellipse>
 
-                            <TextBlock Text="{Binding fullName}" Margin="10 0" TextWrapping="Wrap" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBox Name="tbFullName" Text="{Binding fullName}" Margin="10 0" TextWrapping="Wrap" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
 
                             <Button Name="btnClose" Click="btnClose_Click" Grid.Column="2">

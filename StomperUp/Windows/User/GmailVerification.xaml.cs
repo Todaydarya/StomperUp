@@ -120,7 +120,7 @@ namespace StomperUp.Windows
                     {
                         password = hashedPassword
                     };
-                    await ConnectionDB.UpdateUser(CheckClass.idUser, updatedUser);
+                    await ConnectionDB.UpdateUserPassword(CheckClass.idUser, updatedUser);
                     MessageBox.Show("Пользователь успешно обновлен!");
                     CheckClass.idUser = userToUpdate._id.ToString();
                     this.Close();
@@ -136,7 +136,7 @@ namespace StomperUp.Windows
                 {
                     password = hashedPassword
                 };
-                await ConnectionDB.UpdateUser(userToUpdateEmail._id.ToString(), updatedUser);
+                await ConnectionDB.UpdateUserPassword(userToUpdateEmail._id.ToString(), updatedUser);
                 MessageBox.Show("Пользователь успешно обновлен!");
                 CheckClass.idUser = userToUpdateEmail._id.ToString();
                 this.Close();

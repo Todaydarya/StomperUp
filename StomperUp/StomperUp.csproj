@@ -145,14 +145,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\Admin\AddCoursePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Admin\AddLessonPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Admin\AddTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,12 +232,6 @@
     <Compile Include="Model\TaskModel.cs" />
     <Compile Include="Model\TestModel.cs" />
     <Compile Include="Model\UserModel.cs" />
-    <Compile Include="Pages\Admin\AddCoursePage.xaml.cs">
-      <DependentUpon>AddCoursePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Admin\AddLessonPage.xaml.cs">
-      <DependentUpon>AddLessonPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Admin\AddTestPage.xaml.cs">
       <DependentUpon>AddTestPage.xaml</DependentUpon>
     </Compile>

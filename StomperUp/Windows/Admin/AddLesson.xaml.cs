@@ -23,5 +23,10 @@ namespace StomperUp.Windows.Admin
         {
             InitializeComponent();
         }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
