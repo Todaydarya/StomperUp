@@ -11,7 +11,7 @@ namespace StomperUp.Model
     internal class TaskModel
     {
         public ObjectId _id { get; set; }
-        public string _idUser { get; set; }
+        public ObjectId _idUser { get; set; }
         public string taskName { get; set; }
         public bool isActive { get; set; }
         public string isPriority { get; set; }

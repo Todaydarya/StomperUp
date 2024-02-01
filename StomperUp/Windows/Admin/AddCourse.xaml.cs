@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StomperUp.Class;
+using StomperUp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +26,26 @@ namespace StomperUp.Windows.Admin
             InitializeComponent();
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
+        private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            AddLesson addLesson = new AddLesson();
-            addLesson.ShowDialog();
+            if(string.IsNullOrEmpty(tbNameCourse.Text) || cbProgrammingLanguage.SelectedItem == null)
+            {
+                MessageBox.Show("Заполните поля");
+            }
+            else
+            {
+                CourseModel newCourse = new CourseModel
+                {
+                    nameCourse = tbNameCourse.Text,
+                    programmingLanguage = cbProgrammingLanguage.Text,
+                    coin = 0,
+                    countLesson = 0
+                };
+                await ConnectionDB.AddCourse(newCourse);
+                this.Close();
+                AddLesson addLesson = new AddLesson(newCourse._id);
+                addLesson.ShowDialog();
+            }
         }
     }
 }

@@ -11,8 +11,8 @@ namespace StomperUp.Model
     {
         public ObjectId _id { get; set; }
         public string nameLessons { get; set; }
-        public int idCourse { get; set; }
+        public int coin { get; set; }
+        public ObjectId idCourse { get; set; }
         public string idTest { get; set; }
-        public string material { get; set; }
     }
 }

@@ -122,14 +122,14 @@ namespace StomperUp.Pages.AuthReg
                     }
                     else
                     {
-                        CheckClass.idUser = usersAuth._id.ToString();
+                        CheckClass.idUser = usersAuth._id;
                         CheckClass.isAuthPage = false;
                         MessageBox.Show($"Добро пожаловать, {usersAuth.firstName}");
                         AuthClose();
                     }
                 }
             }
-        }
+          }
         void AuthClose()
         {
             foreach (Window window in App.Current.Windows)

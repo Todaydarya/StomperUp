@@ -17,6 +17,7 @@ using StomperUp.Class;
 using StomperUp.Pages.AuthReg;
 using System.Globalization;
 using MaterialDesignThemes.Wpf;
+using MongoDB.Bson;
 
 namespace StomperUp.Windows
 {
@@ -39,7 +40,7 @@ namespace StomperUp.Windows
 
         private void btnCurriculum_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == null)
+            if (CheckClass.idUser == ObjectId.Empty)
             {
                 if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -55,7 +56,7 @@ namespace StomperUp.Windows
 
         private void btnAchievements_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == null)
+            if (CheckClass.idUser == ObjectId.Empty)
             {
                 if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -71,7 +72,7 @@ namespace StomperUp.Windows
 
         private void btnTask_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == null)
+            if (CheckClass.idUser == ObjectId.Empty)
             {
                 if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -87,7 +88,7 @@ namespace StomperUp.Windows
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == null)
+            if (CheckClass.idUser == ObjectId.Empty)
             {
                 if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -103,7 +104,7 @@ namespace StomperUp.Windows
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == null)
+            if (CheckClass.idUser == ObjectId.Empty)
             {
                 if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {

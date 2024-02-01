@@ -1,7 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using StomperUp.Class;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +17,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.ComponentModel;
+using StomperUp.Model;
 
 namespace StomperUp.Pages.User
 {
@@ -22,15 +28,37 @@ namespace StomperUp.Pages.User
     /// </summary>
     public partial class ProfilePage : Page
     {
+        private BitmapImage _userImage;
         public ProfilePage()
         {
             InitializeComponent();
             UserDB();
         }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
+        {
+            if (byteArray == null || byteArray.Length == 0)
+                return null;
+
+            BitmapImage image = new BitmapImage();
+            using (MemoryStream stream = new MemoryStream(byteArray))
+            {
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = stream;
+                image.EndInit();
+            }
+            return image;
+        }
         public async void UserDB()
         {
             var users = await ConnectionDB.GetUsers();
-            var userSelect = users.Where(p => p._id.ToString() == CheckClass.idUser);
+            var userSelect = users.Where(p => p._id == CheckClass.idUser);
             DataContext = userSelect;
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -38,11 +66,31 @@ namespace StomperUp.Pages.User
             btnEdit.Visibility = Visibility.Collapsed;
             btnSave.Visibility = Visibility.Visible;
             spEditProfile.IsEnabled = true;
+            tbFullName.IsEnabled = true;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //Обработчик на сохранение данных
+            var users = await ConnectionDB.GetUsers();
+            var userToUpdate = users.FirstOrDefault(u => u._id == CheckClass.idUser);
+            string[] searchTerms = tbFullName.Text.ToLower().Split(' ');
+            var updatedUser = new UserModel
+            {
+                firstName = searchTerms[1],
+                surName = searchTerms[0],
+                middleName = searchTerms[2],
+                email = tbEmail.Text,
+                phone = tbPhone.Text,
+                birthday = tBirthday.Text,
+                picturePaths = null
+            };
+            await ConnectionDB.UpdateUser(userToUpdate._id, updatedUser);
+
+            MessageBox.Show("Пользователь успешно обновлен");
+            btnEdit.Visibility = Visibility.Visible;
+            btnSave.Visibility = Visibility.Collapsed;
+            spEditProfile.IsEnabled = false;
+            tbFullName.IsEnabled = false;
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -53,6 +101,51 @@ namespace StomperUp.Pages.User
         private void GitHub_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private async void btnAvatar_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Выберите изображение",
+                Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string imagePath = openFileDialog.FileName;
+
+                    byte[] imageData;
+
+                    using (FileStream fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+                    {
+                        imageData = new byte[fs.Length];
+                        fs.Read(imageData, 0, imageData.Length);
+                    }
+
+                    // Добавление изображения в базу данных
+                    await ConnectionDB.AddImage(CheckClass.idUser, imageData);
+
+                    // Обновление отображаемых изображений (если необходимо)
+                    // LoadUserImages();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Произошла ошибка при добавлении изображения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public BitmapImage UserImage
+        {
+            get { return _userImage; }
+            set
+            {
+                _userImage = value;
+                OnPropertyChanged(nameof(UserImage));
+            }
         }
     }
 }

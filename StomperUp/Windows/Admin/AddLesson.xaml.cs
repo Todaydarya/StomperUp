@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using StomperUp.Class;
+using StomperUp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +22,30 @@ namespace StomperUp.Windows.Admin
     /// </summary>
     public partial class AddLesson : Window
     {
-        public AddLesson()
+        ObjectId idCourse;
+        public AddLesson(ObjectId course)
         {
             InitializeComponent();
+            idCourse = course;
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
+        private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
-
+            if (string.IsNullOrEmpty(tbNameLesson.Text) || string.IsNullOrEmpty(tbCoin.Text))
+            {
+                MessageBox.Show("Заполните поля");
+            }
+            else
+            {
+                LessonsModel newLesson = new LessonsModel
+                {
+                    nameLessons = tbNameLesson.Text,
+                    coin = int.Parse(tbCoin.Text),
+                    idCourse = idCourse
+                };
+                await ConnectionDB.AddLesson(newLesson);
+                this.Close();
+            }
         }
     }
 }

@@ -6,14 +6,16 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:StomperUp.Windows.Admin"
         mc:Ignorable="d"
-        Title="Добавить курс">
+        Title="Добавить курс" Width="320" Height="210">
 
-    <StackPanel Orientation="Vertical">
-        <TextBox Name="tbNameCourse" materialDesign:HintAssist.Hint="Название курса" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-        <ComboBox Name="cbProgrammingLanguage" materialDesign:HintAssist.Hint="Язык программирования">
-            <ComboBoxItem Content="C#"/>
-            <ComboBoxItem Content="C++"/>
-        </ComboBox>
-        <Button Name="btnNext" Content="Сохранить" Click="btnNext_Click"/>
-    </StackPanel>
+    <Border CornerRadius="20">
+        <StackPanel Orientation="Vertical">
+            <TextBox Name="tbNameCourse" materialDesign:HintAssist.Hint="Название курса" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <ComboBox Name="cbProgrammingLanguage" materialDesign:HintAssist.Hint="Язык программирования">
+                <ComboBoxItem Content="C#"/>
+                <ComboBoxItem Content="C++"/>
+            </ComboBox>
+            <Button Name="btnNext" Content="Сохранить" Click="btnNext_Click"/>
+        </StackPanel>
+    </Border>
 </Window>

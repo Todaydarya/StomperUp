@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StomperUp.Windows;
 using StomperUp.Model;
+using MongoDB.Bson;
 
 namespace StomperUp.Pages.User
 {
@@ -34,14 +35,14 @@ namespace StomperUp.Pages.User
             if (MessageBox.Show("Выйти с аккаунта?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 NavigationClass.navigate.Navigate(new MainPage());
-                CheckClass.idUser = null;
+                CheckClass.idUser = ObjectId.Empty;
             }
         }
 
         private async void editPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var users = await ConnectionDB.GetUsers();
-            var usersAuth = users.FirstOrDefault(user => user._id.ToString() == CheckClass.idUser);
+            var usersAuth = users.FirstOrDefault(user => user._id == CheckClass.idUser);
             GmailVerification gmail = new GmailVerification(usersAuth.email);
             gmail.ShowDialog();
         }

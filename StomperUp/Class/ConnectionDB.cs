@@ -2,10 +2,15 @@
 using MongoDB.Driver;
 using StomperUp.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
     namespace StomperUp.Class
 {
@@ -46,10 +51,18 @@ using System.Threading.Tasks;
         public static async Task AddUser(UserModel user)
         {
             var collection = ConnectUser();
+
+            // Убедитесь, что picturePaths инициализирован как пустой массив
+            if (user.picturePaths == null)
+            {
+                user.picturePaths = new List<byte[]>();
+            }
+
             await collection.InsertOneAsync(user);
         }
 
-        public static async Task UpdateUserPassword(string userId, UserModel updatedUser)
+
+        public static async Task UpdateUserPassword(ObjectId userId, UserModel updatedUser)
         {
             var collection = ConnectUser();
             var filter = Builders<UserModel>.Filter.Eq("_id", userId);
@@ -73,6 +86,29 @@ using System.Threading.Tasks;
 
             await collection.UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
         }
+        public static async Task AddImage(ObjectId userId, byte[] imageData)
+        {
+            var collection = ConnectUser();
+            var filter = Builders<UserModel>.Filter.Eq("_id", userId);
+            var update = Builders<UserModel>.Update.Push(u => u.picturePaths, imageData);
+            await collection.UpdateOneAsync(filter, update);
+        }
+
+        public static async Task<List<byte[]>> GetUserImages(ObjectId userId)
+        {
+            var collection = ConnectUser();
+            var filter = Builders<UserModel>.Filter.Eq("_id", userId);
+            var result = await collection.Find(filter).FirstOrDefaultAsync();
+
+            return result?.picturePaths ?? new List<byte[]>();
+        }
+
+
+
+
+
+
+
         private static IMongoCollection<TaskModel> ConnectTask()
         {
             return Connect<TaskModel>("task");
@@ -112,6 +148,8 @@ using System.Threading.Tasks;
 
             await collection.UpdateOneAsync(filter, update);
         }
+
+
         private static IMongoCollection<CourseModel> ConnectCourse()
         {
             return Connect<CourseModel>("course");
@@ -123,5 +161,44 @@ using System.Threading.Tasks;
 
             return course;
         }
+        public static async Task AddCourse(CourseModel course)
+        {
+            var collection = ConnectCourse();
+            await collection.InsertOneAsync(course);
+        }
+
+        private static IMongoCollection<LessonsModel> ConnectLesson()
+        {
+            return Connect<LessonsModel>("lesson");
+        }
+        public static async Task<List<LessonsModel>> GetLesson()
+        {
+            var collection = ConnectLesson();
+            List<LessonsModel> lesson = await collection.Find(new BsonDocument()).ToListAsync();
+
+            return lesson;
+        }
+        public static async Task AddLesson(LessonsModel lesson)
+        {
+            var collection = ConnectLesson();
+            await collection.InsertOneAsync(lesson);
+        }
+
+        public static async Task<List<Tuple<CourseModel, List<LessonsModel>>>> GetCoursesWithLessons()
+        {
+            var coursesCollection = ConnectCourse();
+            var lessonsCollection = ConnectLesson();
+
+            var courses = await coursesCollection.Find(_ => true).ToListAsync();
+
+            var result = courses.Select(course =>
+            {
+                var lessons = lessonsCollection.Find(l => l.idCourse == course._id).ToList();
+                return Tuple.Create(course, lessons);
+            }).ToList();
+
+            return result;
+        }
+
     }
 }

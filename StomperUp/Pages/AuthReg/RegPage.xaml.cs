@@ -130,20 +130,13 @@ namespace StomperUp.Pages.AuthReg
                         phone = "",
                         email = tbEmail.Text,
                         password = hashedPassword,
-                        picturePath = "",
+                        picturePaths = null,
                         role = "",
                     };
-                    try
-                    {
-                        await ConnectionDB.AddUser(newUser);
-                        loading.Visibility = Visibility.Collapsed;
-                        MessageBox.Show($"Регистрацияя прошла успешно");
-                        AuthClose();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
+                    await ConnectionDB.AddUser(newUser);
+                    loading.Visibility = Visibility.Collapsed;
+                    MessageBox.Show($"Регистрацияя прошла успешно");
+                    AuthClose();
                 }
             }
         }

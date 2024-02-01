@@ -11,7 +11,6 @@
     <StackPanel Orientation="Vertical">
         <TextBox Name="tbNameLesson" materialDesign:HintAssist.Hint="Название урока" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
         <TextBox Name="tbCoin" materialDesign:HintAssist.Hint="Монеты за прохождение" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-
         <Button Name="btnNext" Content="Сохранить" Click="btnNext_Click"/>
     </StackPanel>
 </Window>

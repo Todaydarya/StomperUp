@@ -1,19 +1,13 @@
-﻿using MaterialDesignThemes.Wpf;
-using StomperUp.Class;
+﻿using StomperUp.Class;
 using StomperUp.Model;
-using StomperUp.Windows;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using static System.Net.Mime.MediaTypeNames;
 using StomperUp.Windows.Admin;
-using MongoDB.Bson;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace StomperUp.Pages.Admin
 {
@@ -38,7 +32,10 @@ namespace StomperUp.Pages.Admin
             var course = await ConnectionDB.GetCourse();
             itemCourse.ItemsSource = course;
         }
-
+        public async void LessonDB()
+        {
+            var lesson = await ConnectionDB.GetLesson();
+        }
         private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (cbUserAndCourse.SelectedIndex == 1)
@@ -66,20 +63,29 @@ namespace StomperUp.Pages.Admin
 
         private void cbUserAndCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbUserAndCourse.SelectedIndex == 1)
+            int i = 0;
+            if (i != 1)
             {
-                if(gridUser != null)
+                if (cbUserAndCourse.SelectedIndex == 1)
                 {
-                    gridUser.Visibility = Visibility.Visible;
-                    gridCourse.Visibility = Visibility.Collapsed;
+                    if (gridUser != null)
+                    {
+                        gridUser.Visibility = Visibility.Visible;
+                        items.Visibility = Visibility.Visible;
+                        gridCourse.Visibility = Visibility.Collapsed;
+                        UserDB();
+                    }
                 }
-                
+                else
+                {
+                    gridUser.Visibility = Visibility.Collapsed;
+                    items.Visibility = Visibility.Collapsed;
+                    gridCourse.Visibility = Visibility.Visible;
+                    CourseDB();
+                    LessonDB();
+                }
             }
-            else
-            {
-                gridUser.Visibility = Visibility.Collapsed;
-                gridCourse.Visibility = Visibility.Visible;
-            }
+            else i++;          
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -134,7 +140,8 @@ namespace StomperUp.Pages.Admin
                     coin = int.Parse(tbCoin.Text),
                     email = tbEmail.Text,
                     role = cbRole.Text,
-                    picturePath = ""
+                    birthday = tbBirthday.Text,
+                    picturePaths = null
                 };
                 await ConnectionDB.UpdateUser(userToUpdate._id, updatedUser);
 
@@ -146,8 +153,6 @@ namespace StomperUp.Pages.Admin
             {
                 MessageBox.Show("Список пользователей пуст");
             }
-
-
         }
 
         private void itemCourse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

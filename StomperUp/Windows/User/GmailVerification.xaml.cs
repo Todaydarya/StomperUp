@@ -109,26 +109,19 @@ namespace StomperUp.Windows
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(tbPassword.Text);
 
             var user = await ConnectionDB.GetUsers();
-            var userToUpdate = user.FirstOrDefault(u => u._id.ToString() == CheckClass.idUser);
+            var userToUpdate = user.FirstOrDefault(u => u._id == CheckClass.idUser);
             var userToUpdateEmail = user.FirstOrDefault(u => u.email == tbEmail.Text);
 
             if (user.FirstOrDefault(u => u.email == tbEmail.Text) == null)
             {
-                if (userToUpdate != null)
+                UserModel updatedUser = new UserModel
                 {
-                    UserModel updatedUser = new UserModel
-                    {
-                        password = hashedPassword
-                    };
-                    await ConnectionDB.UpdateUserPassword(CheckClass.idUser, updatedUser);
-                    MessageBox.Show("Пользователь успешно обновлен!");
-                    CheckClass.idUser = userToUpdate._id.ToString();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Пользователь не найден.");
-                }
+                    password = hashedPassword
+                };
+                await ConnectionDB.UpdateUserPassword(CheckClass.idUser, updatedUser);
+                MessageBox.Show("Пользователь успешно обновлен!");
+                CheckClass.idUser = updatedUser._id;
+                this.Close();
             }
             else
             {
@@ -136,9 +129,9 @@ namespace StomperUp.Windows
                 {
                     password = hashedPassword
                 };
-                await ConnectionDB.UpdateUserPassword(userToUpdateEmail._id.ToString(), updatedUser);
+                await ConnectionDB.UpdateUserPassword(userToUpdateEmail._id, updatedUser);
                 MessageBox.Show("Пользователь успешно обновлен!");
-                CheckClass.idUser = userToUpdateEmail._id.ToString();
+                CheckClass.idUser = userToUpdateEmail._id;
                 this.Close();
             }
         }
