@@ -145,15 +145,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\Admin\AddSectionPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Admin\AddTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Admin\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Admin\SectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,14 +236,14 @@
     <Compile Include="Model\TaskModel.cs" />
     <Compile Include="Model\TestModel.cs" />
     <Compile Include="Model\UserModel.cs" />
-    <Compile Include="Pages\Admin\AddSectionPage.xaml.cs">
-      <DependentUpon>AddSectionPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Admin\AddTestPage.xaml.cs">
       <DependentUpon>AddTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Admin\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\SectionPage.xaml.cs">
+      <DependentUpon>SectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthReg\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>

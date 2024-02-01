@@ -157,12 +157,20 @@ namespace StomperUp.Pages.Admin
 
         private void itemCourse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            
 
         }
 
-        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        private async void btnInfo_Click(object sender, RoutedEventArgs e)
         {
+            var selectedCourse = (sender as Button).DataContext as CourseModel;
 
+            if (selectedCourse != null)
+            {
+                List<LessonsModel> allLessons = await ConnectionDB.GetLesson();
+                List<LessonsModel> lessonsForSelectedCourse = allLessons.Where(lesson => lesson.idCourse == selectedCourse._id).ToList();
+                itemLesson.ItemsSource = lessonsForSelectedCourse;
+            }
         }
     }
 }

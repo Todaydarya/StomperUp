@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StomperUp.Pages.Admin
 {
     /// <summary>
-    /// Логика взаимодействия для AddSectionPage.xaml
+    /// Логика взаимодействия для SectionPage.xaml
     /// </summary>
-    public partial class AddSectionPage : Page
+    public partial class SectionPage : Page
     {
-        public AddSectionPage()
+        public SectionPage()
         {
             InitializeComponent();
         }
