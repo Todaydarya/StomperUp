@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:StomperUp.Windows.Admin"
         mc:Ignorable="d"
-        Title="Добавить урок">
+        Title="Добавить урок" Width="320" Height="210" WindowStartupLocation="CenterScreen">
     
     <StackPanel Orientation="Vertical">
         <TextBox Name="tbNameLesson" materialDesign:HintAssist.Hint="Название урока" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>

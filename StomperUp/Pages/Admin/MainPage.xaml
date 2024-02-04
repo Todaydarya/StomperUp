@@ -9,13 +9,6 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage">
 
-    <Page.Resources>
-        <CollectionViewSource x:Key="groupedCourses" Source="{Binding YourCoursesCollection}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Lesson" />
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
-    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -152,55 +145,65 @@
                 </ScrollViewer>
             </Border>
         </Grid>
-        
-        
+
+
         <Grid Grid.Row="1" Name="gridCourse" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <ScrollViewer>
-                <ItemsControl Name="itemCourse" MouseLeftButtonDown="itemCourse_MouseLeftButtonDown" ItemsSource="{Binding Source={StaticResource groupedCourses}}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="550" Height="100">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding nameCourse}" Margin="10 0" TextWrapping="Wrap"/>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding countLesson}"/>
-                                            <TextBlock Text="{Binding coin}"/>
-                                            <TextBlock Text="{Binding programmingLanguage}"/>
+                <StackPanel>
+                    <Button Name="btnAddCourse" Click="btnAddCourse_Click">
+                        <materialDesign:PackIcon Kind="Plus"/>
+                    </Button>
+                    <ItemsControl Name="itemCourse" MouseLeftButtonDown="itemCourse_MouseLeftButtonDown">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="550" Height="100">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding nameCourse}" Margin="10 0" TextWrapping="Wrap"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding countLesson}"/>
+                                                <TextBlock Text="{Binding coin}"/>
+                                                <TextBlock Text="{Binding programmingLanguage}"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
 
-                                    <Button Name="btnInfo" Click="btnInfo_Click" Grid.Column="1" Margin="10 0">
-                                        <materialDesign:PackIcon Kind="NextTitle"/>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                                        <Button Name="btnInfo" Click="btnInfo_Click" Grid.Column="1" Margin="10 0">
+                                            <materialDesign:PackIcon Kind="NextTitle"/>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </ScrollViewer>
 
             <ScrollViewer  Grid.Column="1">
-                <ItemsControl Name="itemLesson">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="550" Height="100">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding nameLessons}"/>
-                                    <TextBlock Text="{Binding coin}"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <StackPanel>
+                    <Button Name="btnAddLesson" Click="btnAddLesson_Click" Visibility="Collapsed">
+                        <materialDesign:PackIcon Kind="Plus"/>
+                    </Button>
+                    <ItemsControl Name="itemLesson">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="550" Height="100">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding nameLessons}"/>
+                                        <TextBlock Text="{Binding coin}"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>

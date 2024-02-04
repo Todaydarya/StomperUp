@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:StomperUp.Windows.Admin"
         mc:Ignorable="d"
-        Title="Добавить курс" Width="320" Height="210">
+        Title="Добавить курс" Width="320" Height="210" WindowStartupLocation="CenterScreen">
 
     <Border CornerRadius="20">
         <StackPanel Orientation="Vertical">

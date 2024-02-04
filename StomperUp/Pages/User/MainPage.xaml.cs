@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StomperUp.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,12 @@ namespace StomperUp.Pages.User
         public MainPage()
         {
             InitializeComponent();
-            /*tbSearch.ItemsSource = new string[] { "Дарья", "Александр" };*/
+            CourseDB();
+        }
+        public async void CourseDB()
+        {
+            var course = await ConnectionDB.GetCourse();
+            itemsCourse.ItemsSource = course;
         }
     }
 }

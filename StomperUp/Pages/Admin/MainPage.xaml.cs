@@ -73,6 +73,8 @@ namespace StomperUp.Pages.Admin
                         gridUser.Visibility = Visibility.Visible;
                         items.Visibility = Visibility.Visible;
                         gridCourse.Visibility = Visibility.Collapsed;
+                        btnAddLesson.Visibility = Visibility.Collapsed;
+                        itemLesson.ItemsSource = null;
                         UserDB();
                     }
                 }
@@ -164,13 +166,34 @@ namespace StomperUp.Pages.Admin
         private async void btnInfo_Click(object sender, RoutedEventArgs e)
         {
             var selectedCourse = (sender as Button).DataContext as CourseModel;
-
+            btnAddLesson.Visibility = Visibility.Visible;
             if (selectedCourse != null)
             {
                 List<LessonsModel> allLessons = await ConnectionDB.GetLesson();
                 List<LessonsModel> lessonsForSelectedCourse = allLessons.Where(lesson => lesson.idCourse == selectedCourse._id).ToList();
-                itemLesson.ItemsSource = lessonsForSelectedCourse;
+                if(lessonsForSelectedCourse.Count == 0)
+                {
+                    itemLesson.ItemsSource = lessonsForSelectedCourse;
+                }
+                else
+                {
+                    itemLesson.ItemsSource = lessonsForSelectedCourse;
+                }
+                CheckClass.idCourseSelect = selectedCourse._id;
             }
+        }
+
+        private void btnAddLesson_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedCourse = CheckClass.idCourseSelect;
+            AddLesson addLesson = new AddLesson(selectedCourse);
+            addLesson.ShowDialog();
+        }
+
+        private void btnAddCourse_Click(object sender, RoutedEventArgs e)
+        {
+            AddCourse addCourse = new AddCourse();
+            addCourse.ShowDialog();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace StomperUp.Class
     {
         public static ObjectId idUser { get; set; }
         public static bool isAuthPage { get; set; }
+        public static ObjectId idCourseSelect { get; set; }
     }
 }

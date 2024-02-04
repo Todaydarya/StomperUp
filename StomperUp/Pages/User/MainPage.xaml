@@ -10,21 +10,48 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage">
 
-    <WrapPanel>
-        <ListBox x:Name="RadioButtonGroupChoiceChipPrimaryOutline" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
-            <ListBoxItem Content="Все" IsSelected="True" />
-            <ListBoxItem Content="Активные"/>
-        </ListBox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        
-        <!--<control:AutoCompleteBox Name="tbSearch"></control:AutoCompleteBox>-->
-        <TextBox Name="tbSearch" VerticalAlignment="Top" materialDesign:HintAssist.Hint="Поиск" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <WrapPanel>
+            <ListBox x:Name="RadioButtonGroupChoiceChipPrimaryOutline" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
+                <ListBoxItem Content="Все" IsSelected="True" />
+                <ListBoxItem Content="Активные"/>
+            </ListBox>
 
-        <Button Name="btbSerch">
-            <StackPanel Margin="-5">
+
+            <!--<control:AutoCompleteBox Name="tbSearch"></control:AutoCompleteBox>-->
+            <TextBox Name="tbSearch" VerticalAlignment="Top" materialDesign:HintAssist.Hint="Поиск" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+            <Button Name="btbSerch">
                 <materialDesign:PackIcon Kind="Search"/>
-            </StackPanel>
-        </Button>
-
-    </WrapPanel>
+            </Button>
+        </WrapPanel>
+        
+        
+        <ItemsControl Name="itemsCourse" Grid.Row="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Orientation="Horizontal">
+                        <Border Width="300" Height="200" CornerRadius="20" BorderThickness="2" BorderBrush="Black">
+                            <WrapPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding nameCourse}"/>
+                                <TextBlock Text="{Binding countLesson}"/>
+                                <TextBlock Text="{Binding coin}"/>
+                                <TextBlock Text="{Binding programmingLanguage}"/>
+                            </WrapPanel>
+                        </Border>
+                    </WrapPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
 </Page>
