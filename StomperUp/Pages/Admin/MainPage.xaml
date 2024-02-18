@@ -26,7 +26,6 @@
                         <ComboBoxItem Content="Пользователи"/>
                     </ComboBox>
 
-
                     <Button Name="add" Click="add_Click" Command="{Binding OnDialogOpened}" Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}">
                         <materialDesign:PackIcon Kind="Plus" />
                     </Button>

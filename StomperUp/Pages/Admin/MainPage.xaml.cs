@@ -42,7 +42,7 @@ namespace StomperUp.Pages.Admin
             {
                 var users = await ConnectionDB.GetUsers();
                 string[] searchTerms = tbSearch.Text.ToLower().Split(' ');
-
+                var search = 
                 items.ItemsSource = users.ToList().Where(p => searchTerms.Any(term => p.firstName.ToLower().Contains(term)
                                                                                     || p.surName.ToLower().Contains(term)
                                                                                     || p.email.ToLower().Contains(term)
@@ -171,14 +171,7 @@ namespace StomperUp.Pages.Admin
             {
                 List<LessonsModel> allLessons = await ConnectionDB.GetLesson();
                 List<LessonsModel> lessonsForSelectedCourse = allLessons.Where(lesson => lesson.idCourse == selectedCourse._id).ToList();
-                if(lessonsForSelectedCourse.Count == 0)
-                {
-                    itemLesson.ItemsSource = lessonsForSelectedCourse;
-                }
-                else
-                {
-                    itemLesson.ItemsSource = lessonsForSelectedCourse;
-                }
+                itemLesson.ItemsSource = lessonsForSelectedCourse;
                 CheckClass.idCourseSelect = selectedCourse._id;
             }
         }
