@@ -28,6 +28,7 @@ namespace StomperUp.Pages.User
         {
             InitializeComponent();
             GetTask();
+            tbAddTask.Focus();
         }
 
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
@@ -93,7 +94,7 @@ namespace StomperUp.Pages.User
             var tasks = await ConnectionDB.GetTasks();
             var taskUser = tasks.Where(p => p._idUser == CheckClass.idUser);
             DataContext = taskUser;
-            lvTask.ItemsSource = taskUser;
+            lvTask.ItemsSource = taskUser.OrderByDescending(p => p.isActive);
         }
 
         public async void AddTask()
@@ -115,6 +116,7 @@ namespace StomperUp.Pages.User
                 {
                     await ConnectionDB.AddTask(newTask);
                     GetTask();
+                    tbAddTask.Focus();
                     tbAddTask.Text = "";
                 }
                 catch (Exception ex)

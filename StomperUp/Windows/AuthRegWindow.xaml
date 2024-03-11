@@ -9,6 +9,6 @@
         Title="StomperUp" Height="auto" Width="400" WindowStartupLocation="CenterScreen">
     
     <Grid>
-        <Frame Name="authFrame" NavigationUIVisibility="Hidden"/>
+        <Frame Name="authFrame" NavigationUIVisibility="Hidden" Height="auto" Width="auto"/>
     </Grid>
 </Window>

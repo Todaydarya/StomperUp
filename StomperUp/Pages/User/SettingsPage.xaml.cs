@@ -35,6 +35,8 @@ namespace StomperUp.Pages.User
             if (MessageBox.Show("Выйти с аккаунта?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 NavigationClass.navigate.Navigate(new MainPage());
+                Properties.Settings.Default.idUser = string.Empty;
+                Properties.Settings.Default.Save();
                 CheckClass.idUser = ObjectId.Empty;
             }
         }
@@ -45,6 +47,16 @@ namespace StomperUp.Pages.User
             var usersAuth = users.FirstOrDefault(user => user._id == CheckClass.idUser);
             GmailVerification gmail = new GmailVerification(usersAuth.email);
             gmail.ShowDialog();
+        }
+
+        private void btnLight_Click(object sender, RoutedEventArgs e)
+        {
+            AppTheme.ChangeTheme(new Uri("../Style/Themes/Light.xaml", UriKind.Relative));
+        }
+
+        private void btnDark_Click(object sender, RoutedEventArgs e)
+        {
+            AppTheme.ChangeTheme(new Uri("../Style/Themes/Dark.xaml", UriKind.Relative));
         }
     }
 }

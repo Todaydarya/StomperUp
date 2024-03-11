@@ -11,6 +11,7 @@ using BCrypt.Net;
 using StomperUp.Model;
 using System.Collections.Generic;
 using System;
+using MongoDB.Bson;
 
 namespace StomperUp.Windows
 {

@@ -52,7 +52,6 @@ using System.Windows.Media.Imaging;
         {
             var collection = ConnectUser();
 
-            // Убедитесь, что picturePaths инициализирован как пустой массив
             if (user.picturePaths == null)
             {
                 user.picturePaths = new List<byte[]>();

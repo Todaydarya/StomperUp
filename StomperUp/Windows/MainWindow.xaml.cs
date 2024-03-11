@@ -37,85 +37,49 @@ namespace StomperUp.Windows
         {
             NavigationClass.navigate.Navigate(new MainPage());
         }
+        private void CheckAuthorizationAndNavigate(Page page)
+        {
+            string idUserString = Properties.Settings.Default.idUser;
+            CheckClass.idUser = ObjectId.Empty;
+            if (!string.IsNullOrEmpty(idUserString) && ObjectId.TryParse(idUserString, out ObjectId userId))
+            {
+                CheckClass.idUser = userId;
+            }
+
+            if (CheckClass.idUser != ObjectId.Empty)
+            {
+                NavigationClass.navigate.Navigate(page);
+            }
+            else if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                AuthRegWindow authReg = new AuthRegWindow();
+                authReg.ShowDialog();
+            }
+        }
 
         private void btnCurriculum_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == ObjectId.Empty)
-            {
-                if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    AuthRegWindow authReg = new AuthRegWindow();
-                    authReg.ShowDialog();
-                }
-            }
-            else
-            {
-                NavigationClass.navigate.Navigate(new CurriculumPage());
-            }
+            CheckAuthorizationAndNavigate(new CurriculumPage());
         }
 
         private void btnAchievements_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == ObjectId.Empty)
-            {
-                if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    AuthRegWindow authReg = new AuthRegWindow();
-                    authReg.ShowDialog();
-                }
-            }
-            else
-            {
-                NavigationClass.navigate.Navigate(new AchievementsPage());
-            }
+            CheckAuthorizationAndNavigate(new AchievementsPage());
         }
 
         private void btnTask_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == ObjectId.Empty)
-            {
-                if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    AuthRegWindow authReg = new AuthRegWindow();
-                    authReg.ShowDialog();
-                }
-            }
-            else
-            {
-                NavigationClass.navigate.Navigate(new TaskPage());
-            }
+            CheckAuthorizationAndNavigate(new TaskPage());
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == ObjectId.Empty)
-            {
-                if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    AuthRegWindow authReg = new AuthRegWindow();
-                    authReg.ShowDialog();
-                }
-            }
-            else
-            {
-                NavigationClass.navigate.Navigate(new SettingsPage());
-            }
+            CheckAuthorizationAndNavigate(new SettingsPage());
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckClass.idUser == ObjectId.Empty)
-            {
-                if (MessageBox.Show("Вы не Авторизированы. Войти в аккаунт?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    AuthRegWindow authReg = new AuthRegWindow();
-                    authReg.ShowDialog();
-                }
-            }
-            else
-            {
-                NavigationClass.navigate.Navigate(new ProfilePage());
-            }
+            CheckAuthorizationAndNavigate(new ProfilePage());
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -141,7 +105,8 @@ namespace StomperUp.Windows
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            if(CheckClass.isAuthPage == false) NavigationClass.navigate = mainFrame;
+            if(CheckClass.isAuthPage == false) 
+                NavigationClass.navigate = mainFrame;
         }
     }
 }

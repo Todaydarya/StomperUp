@@ -11,6 +11,7 @@ using BCrypt.Net;
 using StomperUp.Model;
 using System.Collections.Generic;
 using System;
+using System.Configuration;
 
 namespace StomperUp.Pages.AuthReg
 {
@@ -123,6 +124,8 @@ namespace StomperUp.Pages.AuthReg
                     else
                     {
                         CheckClass.idUser = usersAuth._id;
+                        Properties.Settings.Default.idUser = usersAuth._id.ToString();
+                        Properties.Settings.Default.Save();
                         CheckClass.isAuthPage = false;
                         MessageBox.Show($"Добро пожаловать, {usersAuth.firstName}");
                         AuthClose();
@@ -145,6 +148,5 @@ namespace StomperUp.Pages.AuthReg
             (Application.Current.MainWindow as MainWindow).Close();
             // или (Application.Current.MainWindow as MainWindow).Show(); если нужно продолжить работу
         }
-
     }
 }

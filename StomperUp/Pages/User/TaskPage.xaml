@@ -20,12 +20,46 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             
-            <ItemsControl Name="lvTask">
-                <ItemsControl.ItemTemplate>
+            <ListView Name="lvTask">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Grid>
+                                        <Border x:Name="Border" Background="Transparent" BorderThickness="1" CornerRadius="10">
+                                            <ContentPresenter />
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="LightGray"  />
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="#61892F" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="Gray" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border x:Name="Border" Padding="10" Margin="10" BorderThickness="1" CornerRadius="15">
-                            <StackPanel Orientation="Horizontal">
+                        <Border x:Name="Border" Padding="10" Margin="3" BorderThickness="1" CornerRadius="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                
                                 <CheckBox Name="cbCheck" Checked="cbCheck_Checked" Unchecked="cbCheck_Unchecked">
                                     <CheckBox.Style>
                                         <Style TargetType="CheckBox">
@@ -40,7 +74,8 @@
                                         </Style>
                                     </CheckBox.Style>
                                 </CheckBox>
-                                <TextBlock Name="tbNameTask" Text="{Binding taskName}">
+                                
+                                <TextBlock Name="tbNameTask" Text="{Binding taskName}" Grid.Column="1">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
@@ -51,31 +86,36 @@
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                                <Button Name="btnDeleteTask" Click="btnDeleteTask_Click">
+                                
+                                <Button Name="btnDeleteTask" Click="btnDeleteTask_Click" Grid.Column="2">
                                     <materialDesign:PackIcon Kind="Delete"/>
                                 </Button>
-                            </StackPanel>
+                            </Grid>
                         </Border>
                         <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding isActive}" Value="True">
+                            <DataTrigger Binding="{Binding isActive}" Value="False">
                                 <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListView.ItemTemplate>
+            </ListView>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <TextBox Name="tbAddTask" MinWidth="200" KeyDown="tbAddTask_KeyDown" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                <Button Name="btnAddTask" Click="btnAddTask_Click">
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Name="tbAddTask" HorizontalAlignment="Stretch" KeyDown="tbAddTask_KeyDown" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <Button Name="btnAddTask" Click="btnAddTask_Click" Grid.Column="1" Height="45">
                     <materialDesign:PackIcon Kind="Check"/>
                 </Button>
-            </StackPanel>
+            </Grid>
         </Grid>
         
         
 
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" Visibility="Collapsed">
             <StackPanel>
                 <CheckBox IsChecked="{Binding IsSelected}" />
                 <TextBox Text="{Binding Name}"/>

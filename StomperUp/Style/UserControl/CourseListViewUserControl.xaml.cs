@@ -1,5 +1,4 @@
-﻿using StomperUp.Class;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StomperUp.Pages.User
+namespace StomperUp.Style.UserControl
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для CourseListViewUserControl.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class CourseListViewUserControl
     {
-        public MainPage()
+        public CourseListViewUserControl()
         {
             InitializeComponent();
-            CourseDB();
-        }
-        public async void CourseDB()
-        {
-            var course = await ConnectionDB.GetCourse();
-            lvCouses.lvCourse.ItemsSource = course;
         }
     }
 }
