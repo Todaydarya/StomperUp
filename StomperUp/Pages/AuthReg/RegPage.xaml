@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel Margin="20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock x:Name="auth" Text="Авторизация" MouseLeftButtonDown="auth_MouseLeftButtonDown" Style="{StaticResource UnderlineOnHover}"/>
+                <TextBlock x:Name="auth" Text="Авторизация" MouseLeftButtonDown="auth_MouseLeftButtonDown" Style="{DynamicResource UnderlineOnHover}"/>
                 <TextBlock Text="|"/>
                 <TextBlock Text="Регистрация" FontWeight="Bold"/>
             </StackPanel>

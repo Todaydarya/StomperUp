@@ -14,7 +14,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Авторизация" FontWeight="Bold"/>
                 <TextBlock Text="|"/>
-                <TextBlock Name="reg" Text="Регистрация" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="reg_MouseLeftButtonDown" />
+                <TextBlock Name="reg" Text="Регистрация" Style="{DynamicResource UnderlineOnHover}" MouseLeftButtonDown="reg_MouseLeftButtonDown" />
             </StackPanel>
 
             <TextBox Name="tbEmail" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignOutlinedTextBox}" KeyDown="tbEmail_KeyDown"/>
@@ -22,11 +22,11 @@
 
             <PasswordBox Name="pbPassword" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" KeyDown="pbPassword_KeyDown"/>
 
-            <TextBlock Name="Password" Text="Забыли пароль?" Style="{StaticResource UnderlineOnHover}" Margin="0 0 0 10" MouseLeftButtonDown="Password_MouseLeftButtonDown" />
+            <TextBlock Name="Password" Text="Забыли пароль?" Style="{DynamicResource UnderlineOnHover}" Margin="0 0 0 10" MouseLeftButtonDown="Password_MouseLeftButtonDown" />
             <Button Content="Продолжить" Height="45" Click="btnNext_Click" materialDesign:ButtonAssist.CornerRadius="25" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
 
 
-            <TextBlock Name="NavigateReg" Text="Впервые у нас?" MouseLeftButtonDown="NavigateReg_MouseLeftButtonDown" Style="{StaticResource UnderlineOnHover}" HorizontalAlignment="Center" Opacity="0.5" Margin="5" />
+            <TextBlock Name="NavigateReg" Text="Впервые у нас?" MouseLeftButtonDown="NavigateReg_MouseLeftButtonDown" Style="{DynamicResource UnderlineOnHover}" HorizontalAlignment="Center" Opacity="0.5" Margin="5" />
             <materialDesign:Snackbar x:Name="SnackbarFour" VerticalAlignment="Bottom" MessageQueue="{materialDesign:MessageQueue}" />
         </StackPanel>
         

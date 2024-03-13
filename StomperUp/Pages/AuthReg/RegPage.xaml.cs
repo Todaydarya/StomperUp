@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace StomperUp.Pages.AuthReg
 {
@@ -135,7 +136,8 @@ namespace StomperUp.Pages.AuthReg
                     };
                     await ConnectionDB.AddUser(newUser);
                     loading.Visibility = Visibility.Collapsed;
-                    MessageBox.Show($"Регистрацияя прошла успешно");
+                    MessageClass messageInstance = new MessageClass();
+                    messageInstance.Message($"Добро пожаловать в Study Up {newUser.firstName}!");
                     AuthClose();
                 }
             }

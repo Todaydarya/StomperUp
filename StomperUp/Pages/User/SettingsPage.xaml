@@ -18,8 +18,8 @@
         </StackPanel>
         
         <WrapPanel Orientation="Horizontal" Margin="0 20">
-            <TextBlock Name="exitProfile" Text="Выйти с аккаунта" Margin="20 0" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="exitProfile_MouseLeftButtonDown"/>
-            <TextBlock Name="editPassword" Text="Изменить пароль" Margin="20 0" MouseLeftButtonDown="editPassword_MouseLeftButtonDown" Style="{StaticResource UnderlineOnHover}"/>
+            <TextBlock Name="exitProfile" Text="Выйти с аккаунта" Margin="20 0" Style="{DynamicResource UnderlineOnHover}" MouseLeftButtonDown="exitProfile_MouseLeftButtonDown"/>
+            <TextBlock Name="editPassword" Text="Изменить пароль" Margin="20 0" MouseLeftButtonDown="editPassword_MouseLeftButtonDown" Style="{DynamicResource UnderlineOnHover}"/>
         </WrapPanel>
     </WrapPanel>
 </Page>

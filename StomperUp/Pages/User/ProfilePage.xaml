@@ -22,7 +22,7 @@
 
 
             <TextBox Name="tbFullName" Text="{Binding fullName}" IsEnabled="False" TextWrapping="WrapWithOverflow" FontSize="36" Margin="0 20 0 0" TextAlignment="Center"/>
-            <TextBlock Name="tbEmail" Text="{Binding email}" Foreground="#C47E2D" TextAlignment="Center" Style="{StaticResource UnderlineOnHover}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+            <TextBlock Name="tbEmail" Text="{Binding email}" Foreground="#C47E2D" TextAlignment="Center" Style="{DynamicResource UnderlineOnHover}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <materialDesign:PackIcon Kind="Github" MouseLeftButtonDown="GitHub_MouseLeftButtonDown"/>
                 <Image Source="https://icons8.ru/icon/60454/vk-в-круге"/>
