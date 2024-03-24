@@ -4,11 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StomperUp.Pages.Admin"
+      xmlns:class="clr-namespace:StomperUp.Class"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage">
-
+    <Page.Resources>
+        <class:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -18,12 +21,13 @@
         <materialDesign:ColorZone Padding="5" Mode="Dark">
             <DockPanel>
                 <StackPanel materialDesign:RippleAssist.IsCentered="True" Orientation="Horizontal">
-
+                    <Button Name="btnExit" Content="Выйти" Click="btnExit_Click" Margin="10 0"/>
                     <TextBox Name="tbSearch" MinWidth="200" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Поиск" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:ElevationAssist.Elevation="Dp12"/>
 
                     <ComboBox Name="cbUserAndCourse"  materialDesign:ColorZoneAssist.Mode="Standard" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignPaper}" BorderThickness="0" SelectedIndex="1" SelectionChanged="cbUserAndCourse_SelectionChanged">
                         <ComboBoxItem Content="Курсы"/>
                         <ComboBoxItem Content="Пользователи"/>
+                        <ComboBoxItem Content="Достижения"/>
                     </ComboBox>
 
                     <Button Name="add" Click="add_Click" Command="{Binding OnDialogOpened}" Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}">
@@ -156,32 +160,45 @@
                     <Button Name="btnAddCourse" Click="btnAddCourse_Click">
                         <materialDesign:PackIcon Kind="Plus"/>
                     </Button>
-                    <ItemsControl Name="itemCourse" MouseLeftButtonDown="itemCourse_MouseLeftButtonDown">
-                        <ItemsControl.ItemTemplate>
+                    <ListView Name="itemCourse" SelectionChanged="itemCourse_SelectionChanged">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <Grid>
+                                                <Border x:Name="Border" Padding="10" BorderBrush="Black" Margin="0 3" Background="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="LightGray"  />
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="550" Height="100">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding nameCourse}" Margin="10 0" TextWrapping="Wrap"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding countLesson}"/>
-                                                <TextBlock Text="{Binding coin}"/>
-                                                <TextBlock Text="{Binding programmingLanguage}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-
-                                        <Button Name="btnInfo" Click="btnInfo_Click" Grid.Column="1" Margin="10 0">
-                                            <materialDesign:PackIcon Kind="NextTitle"/>
-                                        </Button>
-                                    </Grid>
-                                </Border>
+                                <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding nameCourse}" TextWrapping="Wrap"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding countLesson, StringFormat=Уроков: {0}}"/>
+                                        <TextBlock Text="{Binding coin, StringFormat=Монетки: {0}}"/>
+                                        <TextBlock Text="{Binding programmingLanguage, StringFormat=Язык: {0}}"/>
+                                    </StackPanel>
+                                </StackPanel>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
             </ScrollViewer>
 
@@ -190,20 +207,66 @@
                     <Button Name="btnAddLesson" Click="btnAddLesson_Click" Visibility="Collapsed">
                         <materialDesign:PackIcon Kind="Plus"/>
                     </Button>
-                    <ItemsControl Name="itemLesson">
-                        <ItemsControl.ItemTemplate>
+                    <ListView Name="itemLesson">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <Grid>
+                                                <Border x:Name="Border" Padding="10" BorderBrush="Black" Margin="0 3" Background="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="LightGray"  />
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="20" Margin="10" BorderThickness="2" BorderBrush="Black" Width="550" Height="100">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding nameLessons}"/>
-                                        <TextBlock Text="{Binding coin}"/>
-                                    </StackPanel>
-                                </Border>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding nameLessons, StringFormat=Урок: {0}}"/>
+                                    <TextBlock Text="{Binding coin, StringFormat=Монеток: {0}}"/>
+                                </StackPanel>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
             </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="1" Name="gridAchievements" Visibility="Visible">
+            <ListView Name="lvAchievements">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="Black" Padding="5" Margin="10">
+                                <StackPanel Name="avatar" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="{Binding picturePath, Converter={StaticResource ByteArrayToImageConverter}}" Height="150" Width="150"/>
+                                    <TextBlock Text="{Binding nameAchievement}"/>
+                                    <TextBlock Text="{Binding coin}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
         </Grid>
     </Grid>
 </Page>

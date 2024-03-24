@@ -71,6 +71,8 @@ namespace StomperUp.Pages.User
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            btnAvatar_Click(sender, e);
+
             var users = await ConnectionDB.GetUsers();
             var userToUpdate = users.FirstOrDefault(u => u._id == CheckClass.idUser);
             string[] searchTerms = tbFullName.Text.ToLower().Split(' ');
@@ -82,7 +84,7 @@ namespace StomperUp.Pages.User
                 email = tbEmail.Text,
                 phone = tbPhone.Text,
                 birthday = tBirthday.Text,
-                picturePaths = null
+                picturePaths = selectedImageData
             };
             await ConnectionDB.UpdateUser(userToUpdate._id, updatedUser);
 
@@ -93,6 +95,7 @@ namespace StomperUp.Pages.User
             tbFullName.IsEnabled = false;
         }
 
+
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -102,7 +105,7 @@ namespace StomperUp.Pages.User
         {
 
         }
-
+        private byte[] selectedImageData;
         private async void btnAvatar_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -116,20 +119,12 @@ namespace StomperUp.Pages.User
                 try
                 {
                     string imagePath = openFileDialog.FileName;
-
-                    byte[] imageData;
-
                     using (FileStream fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
                     {
-                        imageData = new byte[fs.Length];
-                        fs.Read(imageData, 0, imageData.Length);
+                        selectedImageData = new byte[fs.Length];
+                        await fs.ReadAsync(selectedImageData, 0, selectedImageData.Length);
                     }
-
-                    // Добавление изображения в базу данных
-                    await ConnectionDB.AddImage(CheckClass.idUser, imageData);
-
-                    // Обновление отображаемых изображений (если необходимо)
-                    // LoadUserImages();
+                    imgPreview.Source = LoadImage(selectedImageData);
                 }
                 catch (Exception ex)
                 {
@@ -137,15 +132,18 @@ namespace StomperUp.Pages.User
                 }
             }
         }
-
-        public BitmapImage UserImage
+        public BitmapImage LoadImage(byte[] imageData)
         {
-            get { return _userImage; }
-            set
+            BitmapImage image = new BitmapImage();
+            using (MemoryStream stream = new MemoryStream(imageData))
             {
-                _userImage = value;
-                OnPropertyChanged(nameof(UserImage));
+                stream.Position = 0;
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = stream;
+                image.EndInit();
             }
+            return image;
         }
     }
 }

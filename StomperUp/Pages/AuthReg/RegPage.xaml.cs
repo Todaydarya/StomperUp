@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using StomperUp.Style;
 using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace StomperUp.Pages.AuthReg
@@ -108,7 +109,8 @@ namespace StomperUp.Pages.AuthReg
             }
             else
             {
-                loading.Visibility = Visibility.Visible;
+                var loadingCard = FindResource("LoadingCard") as FrameworkElement;
+                loadingCard.Visibility = Visibility.Visible;
                 var users = await ConnectionDB.GetUsers();
                 var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
                 if (usersAuth != null)
@@ -135,7 +137,7 @@ namespace StomperUp.Pages.AuthReg
                         role = "",
                     };
                     await ConnectionDB.AddUser(newUser);
-                    loading.Visibility = Visibility.Collapsed;
+                    loadingCard.Visibility = Visibility.Collapsed;
                     MessageClass messageInstance = new MessageClass();
                     messageInstance.Message($"Добро пожаловать в Study Up {newUser.firstName}!");
                     AuthClose();

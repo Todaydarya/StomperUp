@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style/Themes/Light.xaml"/>
                 <ResourceDictionary Source="Style/Themes/BaseStyles.xaml"/>
+                <ResourceDictionary Source="Style/Loading.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

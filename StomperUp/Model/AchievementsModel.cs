@@ -12,7 +12,7 @@ namespace StomperUp.Model
         public ObjectId _id { get; set; }
         public string nameAchievement { get; set; }
         public int coin { get; set; }
-        public string picturePath { get; set; }
+        public byte[] picturePath { get; set; }
         public string description { get; set; }
     }
 }

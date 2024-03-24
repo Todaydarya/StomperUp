@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StomperUp.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="StomperUp" Height="auto" Width="400" WindowStartupLocation="CenterScreen">
+        Title="StomperUp" Height="auto" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     
     <Grid>
         <Frame Name="authFrame" NavigationUIVisibility="Hidden" Height="auto" Width="auto"/>

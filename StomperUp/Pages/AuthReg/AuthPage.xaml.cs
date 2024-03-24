@@ -91,7 +91,8 @@ namespace StomperUp.Pages.AuthReg
             }
             else
             {
-                loading.Visibility = Visibility.Visible;
+                var loadingCard = FindResource("LoadingCard") as FrameworkElement;
+                loadingCard.Visibility = Visibility.Visible;
                 List<UserModel> users = await ConnectionDB.GetUsers();
                 var usersAuth = users.FirstOrDefault(user => user.email == tbEmail.Text);
                 if (usersAuth == null)
@@ -100,18 +101,17 @@ namespace StomperUp.Pages.AuthReg
                     {
                         NavigationClass.navigate.Navigate(new RegPage());
                     }
-                    loading.Visibility = Visibility.Collapsed;
+                    loadingCard.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pbPassword.ToString(), usersAuth.password);
-
                     do
                     {
 
                     }
                     while (isPasswordCorrect);
-                    loading.Visibility = Visibility.Collapsed;
+                    loadingCard.Visibility = Visibility.Collapsed;
                     if (usersAuth.role == "admin")
                     {
                         AuthClose();

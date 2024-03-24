@@ -52,10 +52,10 @@ using System.Windows.Media.Imaging;
         {
             var collection = ConnectUser();
 
-            if (user.picturePaths == null)
+            /*if (user.picturePaths == null)
             {
-                user.picturePaths = new List<byte[]>();
-            }
+                user.picturePaths = byte[]();
+            }*/
 
             await collection.InsertOneAsync(user);
         }
@@ -81,25 +81,10 @@ using System.Windows.Media.Imaging;
                 .Set(u => u.middleName, updatedUser.middleName)
                 .Set(u => u.coin, updatedUser.coin)
                 .Set(u => u.role, updatedUser.role)
-                .Set(u => u.email, updatedUser.email);
+                .Set(u => u.email, updatedUser.email)
+                .Set(u => u.picturePaths, updatedUser.picturePaths);
 
             await collection.UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
-        }
-        public static async Task AddImage(ObjectId userId, byte[] imageData)
-        {
-            var collection = ConnectUser();
-            var filter = Builders<UserModel>.Filter.Eq("_id", userId);
-            var update = Builders<UserModel>.Update.Push(u => u.picturePaths, imageData);
-            await collection.UpdateOneAsync(filter, update);
-        }
-
-        public static async Task<List<byte[]>> GetUserImages(ObjectId userId)
-        {
-            var collection = ConnectUser();
-            var filter = Builders<UserModel>.Filter.Eq("_id", userId);
-            var result = await collection.Find(filter).FirstOrDefaultAsync();
-
-            return result?.picturePaths ?? new List<byte[]>();
         }
 
 
@@ -198,6 +183,23 @@ using System.Windows.Media.Imaging;
 
             return result;
         }
+        private static IMongoCollection<AchievementsModel> ConnectAchievements()
+        {
+            return Connect<AchievementsModel>("achievements");
+        }
 
+        public static async Task<List<AchievementsModel>> GetAchievements()
+        {
+            var collection = ConnectAchievements();
+            List<AchievementsModel> achievements = await collection.Find(new BsonDocument()).ToListAsync();
+
+            return achievements;
+        }
+
+        public static async Task AddAchievements(AchievementsModel achievements)
+        {
+            var collection = ConnectAchievements();
+            await collection.InsertOneAsync(achievements);
+        }
     }
 }

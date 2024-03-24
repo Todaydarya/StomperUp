@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using StomperUp.Windows.Admin;
 using System.Collections.ObjectModel;
+using System;
 
 namespace StomperUp.Pages.Admin
 {
@@ -36,6 +37,11 @@ namespace StomperUp.Pages.Admin
         {
             var lesson = await ConnectionDB.GetLesson();
         }
+        public async void AchievementsDB()
+        {
+            var achievements = await ConnectionDB.GetAchievements();
+            lvAchievements.ItemsSource = achievements;
+        }
         private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (cbUserAndCourse.SelectedIndex == 1)
@@ -63,13 +69,11 @@ namespace StomperUp.Pages.Admin
 
         private void cbUserAndCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int i = 0;
-            if (i != 1)
-            {
                 if (cbUserAndCourse.SelectedIndex == 1)
                 {
                     if (gridUser != null)
                     {
+                        lvAchievements.Visibility = Visibility.Collapsed;
                         gridUser.Visibility = Visibility.Visible;
                         items.Visibility = Visibility.Visible;
                         gridCourse.Visibility = Visibility.Collapsed;
@@ -78,16 +82,24 @@ namespace StomperUp.Pages.Admin
                         UserDB();
                     }
                 }
+                else if(cbUserAndCourse.SelectedIndex == 2)
+                {
+                    gridUser.Visibility = Visibility.Collapsed;
+                    items.Visibility = Visibility.Collapsed;
+                    gridCourse.Visibility = Visibility.Collapsed;
+                    btnAddLesson.Visibility = Visibility.Collapsed;
+                    lvAchievements.Visibility = Visibility.Visible;
+                    AchievementsDB();
+                }
                 else
                 {
+                    lvAchievements.Visibility = Visibility.Collapsed;
                     gridUser.Visibility = Visibility.Collapsed;
                     items.Visibility = Visibility.Collapsed;
                     gridCourse.Visibility = Visibility.Visible;
                     CourseDB();
                     LessonDB();
-                }
-            }
-            else i++;          
+                }        
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -96,6 +108,11 @@ namespace StomperUp.Pages.Admin
             {
                 AddCourse addCourse = new AddCourse();
                 addCourse.ShowDialog();
+            }
+            else if(cbUserAndCourse.SelectedIndex == 2)
+            {
+                AddAchievementsWindow addAchievements = new AddAchievementsWindow();
+                addAchievements.ShowDialog();
             }
             else
             {
@@ -157,25 +174,6 @@ namespace StomperUp.Pages.Admin
             }
         }
 
-        private void itemCourse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-
-        }
-
-        private async void btnInfo_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedCourse = (sender as Button).DataContext as CourseModel;
-            btnAddLesson.Visibility = Visibility.Visible;
-            if (selectedCourse != null)
-            {
-                List<LessonsModel> allLessons = await ConnectionDB.GetLesson();
-                List<LessonsModel> lessonsForSelectedCourse = allLessons.Where(lesson => lesson.idCourse == selectedCourse._id).ToList();
-                itemLesson.ItemsSource = lessonsForSelectedCourse;
-                CheckClass.idCourseSelect = selectedCourse._id;
-            }
-        }
-
         private void btnAddLesson_Click(object sender, RoutedEventArgs e)
         {
             var selectedCourse = CheckClass.idCourseSelect;
@@ -187,6 +185,27 @@ namespace StomperUp.Pages.Admin
         {
             AddCourse addCourse = new AddCourse();
             addCourse.ShowDialog();
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void itemCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (itemCourse.SelectedItem != null)
+            {
+                var selectedCourse = itemCourse.SelectedItem as CourseModel;
+                btnAddLesson.Visibility = Visibility.Visible;
+                if (selectedCourse != null)
+                {
+                    List<LessonsModel> allLessons = await ConnectionDB.GetLesson();
+                    List<LessonsModel> lessonsForSelectedCourse = allLessons.Where(lesson => lesson.idCourse == selectedCourse._id).ToList();
+                    itemLesson.ItemsSource = lessonsForSelectedCourse;
+                    CheckClass.idCourseSelect = selectedCourse._id;
+                }
+            }
         }
     }
 }

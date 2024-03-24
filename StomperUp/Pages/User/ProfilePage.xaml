@@ -4,11 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:class="clr-namespace:StomperUp.Class"
       xmlns:local="clr-namespace:StomperUp.Pages.User"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
 
+    <Page.Resources>
+        <class:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -17,7 +21,7 @@
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <Button Name="btnAvatar" Click="btnAvatar_Click" Width="250" Height="250" materialDesign:ButtonAssist.CornerRadius="1000">
-                <Image Name="imageAvatar" Source="{Binding UserImage}" Stretch="UniformToFill" />
+                <Image Name="imgPreview" Source="{Binding picturePaths, Converter={StaticResource ByteArrayToImageConverter}}" Width="200" Height="200"/>
             </Button>
 
 

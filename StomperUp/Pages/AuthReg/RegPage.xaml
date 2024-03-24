@@ -29,9 +29,7 @@
             <Button Name="btnNext" Content="Продолжить" Click="btnNext_Click" IsEnabled="{Binding DataContext.ControlsEnabled}" Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Cursor="Hand" />
             <materialDesign:Snackbar x:Name="SnackbarFour" VerticalAlignment="Bottom" MessageQueue="{materialDesign:MessageQueue}" />
         </StackPanel>
-        
-        <materialDesign:Card Name="loading" Padding="4" Visibility="Collapsed" UniformCornerRadius="14" Background="Black" Opacity="0.3">
-            <ProgressBar IsIndeterminate="True" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="50" />
-        </materialDesign:Card>
+
+        <ContentControl Content="{StaticResource LoadingCard}" />
     </Grid>
 </Page>
